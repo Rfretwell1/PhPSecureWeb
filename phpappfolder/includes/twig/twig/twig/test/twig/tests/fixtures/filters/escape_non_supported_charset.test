@@ -1,0 +1,8 @@
+--TEST--
+"escape" filter
+--TEMPLATE--
+{{ "æ„›ã?—ã?¦ã?„ã?¾ã?™ã?‹ï¼Ÿ <br />"|e }}
+--DATA--
+return array()
+--EXPECT--
+æ„›ã?—ã?¦ã?„ã?¾ã?™ã?‹ï¼Ÿ &lt;br /&gt;
