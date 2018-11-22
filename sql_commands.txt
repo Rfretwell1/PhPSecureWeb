@@ -7,9 +7,9 @@
 
 //Creates the table to hold the SMS info
 	USE coursework_db;
-	DROP TABLE IF EXISTS 'downloaded_messages';
+	DROP TABLE IF EXISTS downloaded_messages;
 	CREATE TABLE downloaded_messages (
-		'message_id' varchar(40) COLLATE utf8_unicode_ci NOT NULL,
-		'message_content' varchar(128) COLLATE utf8_unicode_ci NOT NULL,
-		'message_metadata' varchar(128) COLLATE utf8_unicode_ci NOT NULL
+		message_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+		message_content varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+		message_metadata varchar(128) COLLATE utf8_unicode_ci NOT NULL
 	) ENGINE = InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
