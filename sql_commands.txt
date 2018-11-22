@@ -1,0 +1,15 @@
+//THESE COMMANDS SHOULD ONLY HAVE TO BE RAN ONCE PER MACHINE - MAY LOSE DATA OTHERWISE
+
+//Creates the database & user
+	CREATE DATABASE coursework_db COLLATE utf8_unicode_ci;
+
+	GRANT SELECT, INSERT, UPDATE on coursework_db.* TO 'cw_user'@'localhost' IDENTIFIED BY 'cw_pass';
+
+//Creates the table to hold the SMS info
+	USE coursework_db;
+	DROP TABLE IF EXISTS 'downloaded_messages';
+	CREATE TABLE downloaded_messages (
+		'message_id' varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+		'message_content' varchar(128) COLLATE utf8_unicode_ci NOT NULL,
+		'message_metadata' varchar(128) COLLATE utf8_unicode_ci NOT NULL
+	) ENGINE = InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
