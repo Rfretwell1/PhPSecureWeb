@@ -10,7 +10,7 @@ $app->get('/', function(Request $request, Response $response)
         [
             'css_path' => CSS_PATH,
             'landing_page' => $_SERVER["SCRIPT_NAME"],
-            'action' => 'index.php',
+            'action' => 'index.php/storeindatabase',
             'page_title' => 'Coursework',
         ]);
 })->setName('home');

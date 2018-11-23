@@ -41,6 +41,28 @@ class __TwigTemplate_fc56857d3d1cca4b3de58b9dab1beead589e85fd40531ea6027c9f1095b
         // line 4
         echo "    <div id=\"page-content-div\">
         <p>Very basic webpage</p>
+        <form action=\"";
+        // line 6
+        echo twig_escape_filter($this->env, ($context["action"] ?? null), "html", null, true);
+        echo "\" method=\"post\">
+            <fieldset>
+                <legend>Store message in database</legend>
+                <br>
+                <label for=\"content\">Message content:</label>
+                <input id=\"content\" name=\"content\" type=\"text\" value=\"";
+        // line 11
+        echo twig_escape_filter($this->env, ($context["initial_input_box_value"] ?? null), "html", null, true);
+        echo "\" size=\"30\" maxlength=\"50\">
+                <br><br>
+                <label for=\"metadata\">Message metadata:</label>
+                <input id=\"metadata\" name=\"metadata\" type=\"password\" value=\"";
+        // line 14
+        echo twig_escape_filter($this->env, ($context["initial_input_box_value"] ?? null), "html", null, true);
+        echo "\" size=\"30\" maxlength=\"50\">
+                <br><br>
+                <input type=\"submit\" value=\"Store the information >>>\">
+            </fieldset>
+        </form>
     </div>
 ";
     }
@@ -57,7 +79,7 @@ class __TwigTemplate_fc56857d3d1cca4b3de58b9dab1beead589e85fd40531ea6027c9f1095b
 
     public function getDebugInfo()
     {
-        return array (  42 => 4,  39 => 3,  33 => 2,  15 => 1,);
+        return array (  60 => 14,  54 => 11,  46 => 6,  42 => 4,  39 => 3,  33 => 2,  15 => 1,);
     }
 
     public function getSourceContext()

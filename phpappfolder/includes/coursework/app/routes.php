@@ -12,3 +12,5 @@
  */
 
 require 'routes/home.php';
+require 'routes/storeindatabase.php';
+require 'routes/displaymessagedetails.php';

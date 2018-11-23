@@ -19,6 +19,27 @@ $container['view'] = function ($container) {
     return $view;
 };
 
+$container['message_validator'] = function ($container) {
+    $class_path = $container->get('settings')['class_path'];
+    require $class_path . 'MessageValidator.php';
+    $validator = new MessageValidator();
+    return $validator;
+};
+
+$container['message_model'] = function ($container) {
+    $class_path = $container->get('settings')['class_path'];
+    require $class_path . 'MessageModel.php';
+    $model = new MessageModel();
+    return $model;
+};
+
+$container['message_wrapper'] = function ($container) {
+    $class_path = $container->get('settings')['class_path'];
+    require $class_path . 'MessageWrapper.php';
+    $session_wrapper = new MessageWrapper();
+    return $session_wrapper;
+};
+
 $container['mysql_wrapper'] = function ($container) {
 $class_path = $container->get('settings')['class_path'];
 require $class_path . 'MySQLWrapper.php';

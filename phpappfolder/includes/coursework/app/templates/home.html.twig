@@ -3,5 +3,18 @@
 {% block content %}
     <div id="page-content-div">
         <p>Very basic webpage</p>
+        <form action="{{ action }}" method="post">
+            <fieldset>
+                <legend>Store message in database</legend>
+                <br>
+                <label for="content">Message content:</label>
+                <input id="content" name="content" type="text" value="{{ initial_input_box_value }}" size="30" maxlength="50">
+                <br><br>
+                <label for="metadata">Message metadata:</label>
+                <input id="metadata" name="metadata" type="password" value="{{ initial_input_box_value }}" size="30" maxlength="50">
+                <br><br>
+                <input type="submit" value="Store the information >>>">
+            </fieldset>
+        </form>
     </div>
 {% endblock %}

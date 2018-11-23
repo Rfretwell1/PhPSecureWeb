@@ -1,18 +1,5 @@
 <?php
 
-/**
- * MySQLWrapper.php
- *
- * Access the sessions database
- *
- * Author: CF Ingrams
- * Email: <clinton@cfing.co.uk>
- * Date: 22/10/2017
- *
- * @author CF Ingrams <clinton@cfing.co.uk>
- * @copyright CFI
- */
-
 class MySQLWrapper
 {
   private $c_obj_db_handle;
@@ -40,64 +27,13 @@ class MySQLWrapper
     $this->c_obj_sql_queries = $p_obj_sql_queries;
   }
 
-  public function store_session_var($p_session_key, $p_session_value)
-  {
-
-    if ($this->session_var_exists($p_session_key) === true)
-    {
-      $this->set_session_var($p_session_key, $p_session_value);
-    }
-    else
-    {
-      $this->create_session_var($p_session_key, $p_session_value);
-    }
-
-    return($this->c_arr_errors);
-  }
-
-  private function session_var_exists($p_session_key)
-  {
-    $session_var_exists = false;
-    $m_query_string = $this->c_obj_sql_queries->check_session_var();
-
-    $m_arr_query_parameters = [
-      ':local_session_id' => session_id(),
-      ':session_var_name' => $p_session_key
-    ];
-
-    $this->safe_query($m_query_string, $m_arr_query_parameters);
-
-    if ($this->count_rows() > 0)
-    {
-      $session_var_exists = true;
-    }
-    return $session_var_exists;
-  }
-
-  private function create_session_var($p_session_key, $p_session_value)
-  {
-    $m_query_string = $this->c_obj_sql_queries->create_session_var();
-
-    $m_arr_query_parameters = [
-      ':local_session_id' => session_id(),
-      ':session_var_name' => $p_session_key,
-      ':session_var_value' => $p_session_value
-    ];
-
-    $this->safe_query($m_query_string, $m_arr_query_parameters);
-  }
-
-  private function set_session_var($p_session_key, $p_session_value)
-  {
-    $m_query_string = $this->c_obj_sql_queries->set_session_var();
-
-    $m_arr_query_parameters = [
-      ':local_session_id' => session_id(),
-      ':session_var_name' => $p_session_key,
-      ':session_var_value' => $p_session_value
-    ];
-
-    $this->safe_query($m_query_string, $m_arr_query_parameters);
+  public function insert_message_details($p_message_content, $p_message_metadata) {
+      $m_query_string = $this->c_obj_sql_queries->insert_message_details();
+      $m_arr_query_parameters = [
+          ':message_content' => $p_message_content,
+          ':message_metadata' => $p_message_metadata,
+      ];
+      $this->safe_query($m_query_string, $m_arr_query_parameters);
   }
 
   public function safe_query($p_query_string, $p_arr_params = null)
