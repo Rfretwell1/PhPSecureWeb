@@ -3,7 +3,7 @@
 //Creates the database & user
 	CREATE DATABASE coursework_db COLLATE utf8_unicode_ci;
 
-	GRANT SELECT, INSERT, UPDATE on coursework_db.* TO 'cw_user'@'localhost' IDENTIFIED BY 'cw_pass';
+	GRANT SELECT, INSERT, UPDATE on coursework_db.* TO 'cw_user'@'localhost' IDENTIFIED BY 'cw_password';
 
 //Creates the table to hold the SMS info
 	USE coursework_db;
