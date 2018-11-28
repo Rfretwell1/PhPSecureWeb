@@ -49,9 +49,44 @@ class MessageModel
         $this->c_obj_sql_queries = $p_obj_sql_queries;
     }
 
-    public function store_data()
+    public function createSoapClient()
     {
-        $this->c_arr_storage_result['database'] = $this->store_data_in_database();
+        $obj_soap_client_handle = false;
+        $wsdl = WSDL;
+        $arr_soapclient = ['trace' => true, 'exceptions' => true];
+
+        try
+        {
+            $obj_soap_client_handle = new SoapClient($wsdl, $arr_soapclient);
+            var_dump($obj_soap_client_handle->__getFunctions());
+            var_dump($obj_soap_client_handle->__getTypes());
+        }
+        catch (SoapFault $obj_exception)
+        {
+            trigger_error($obj_exception);
+        }
+
+        return $obj_soap_client_handle;
+    }
+
+    public function sendMessage($soapClient, $number, $message) {
+        try {
+            $soapClient->sendMessage('18JoshDavis', 'Greggs123', $number, $message, false, 'SMS');
+        }
+        catch (SoapFault $obj_exception) {
+            trigger_error($obj_exception);
+        }
+        return $soapClient->__getLastRequest();
+    }
+
+    public function peekMessages($soapClient) {
+        try {
+            $soapClient->peekMessages('18JoshDavis', 'Greggs123', 100, '+447817814149');
+        }
+        catch (SoapFault $obj_exception) {
+            trigger_error($obj_exception);
+        }
+        return $soapClient->__getLastRequest();
     }
 
     public function get_storage_result()
@@ -59,7 +94,7 @@ class MessageModel
         return $this->c_arr_storage_result;
     }
 
-    public function store_data_in_database()
+    public function store_data()
     {
         $m_store_result = false;
 

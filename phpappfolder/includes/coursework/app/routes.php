@@ -14,3 +14,7 @@
 require 'routes/home.php';
 require 'routes/storeindatabase.php';
 require 'routes/displaymessagedetails.php';
+require 'routes/sendmessage.php';
+require 'routes/displaysentmessage.php';
+require 'routes/peekmessages.php';
+require 'routes/displaypeekedmessages.php';

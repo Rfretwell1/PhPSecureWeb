@@ -43,7 +43,7 @@ class __TwigTemplate_fc56857d3d1cca4b3de58b9dab1beead589e85fd40531ea6027c9f1095b
         <p>Very basic webpage</p>
         <form action=\"";
         // line 6
-        echo twig_escape_filter($this->env, ($context["action"] ?? null), "html", null, true);
+        echo twig_escape_filter($this->env, ($context["storeindatabase"] ?? null), "html", null, true);
         echo "\" method=\"post\">
             <fieldset>
                 <legend>Store message in database</legend>
@@ -55,12 +55,43 @@ class __TwigTemplate_fc56857d3d1cca4b3de58b9dab1beead589e85fd40531ea6027c9f1095b
         echo "\" size=\"30\" maxlength=\"50\">
                 <br><br>
                 <label for=\"metadata\">Message metadata:</label>
-                <input id=\"metadata\" name=\"metadata\" type=\"password\" value=\"";
+                <input id=\"metadata\" name=\"metadata\" type=\"text\" value=\"";
         // line 14
         echo twig_escape_filter($this->env, ($context["initial_input_box_value"] ?? null), "html", null, true);
         echo "\" size=\"30\" maxlength=\"50\">
                 <br><br>
                 <input type=\"submit\" value=\"Store the information >>>\">
+            </fieldset>
+        </form>
+        <form action=\"";
+        // line 19
+        echo twig_escape_filter($this->env, ($context["sendmessage"] ?? null), "html", null, true);
+        echo "\" method=\"post\">
+            <fieldset>
+                <legend>Send an SMS message</legend>
+                <br>
+                <label for=\"number\">Phone number:</label>
+                <input id=\"number\" name=\"number\" type=\"text\" value=\"";
+        // line 24
+        echo twig_escape_filter($this->env, ($context["initial_input_box_value"] ?? null), "html", null, true);
+        echo "\" size=\"30\" maxlength=\"50\">
+                <br><br>
+                <label for=\"message\">Message:</label>
+                <input id=\"message\" name=\"message\" type=\"text\" value=\"";
+        // line 27
+        echo twig_escape_filter($this->env, ($context["initial_input_box_value"] ?? null), "html", null, true);
+        echo "\" size=\"30\" maxlength=\"50\">
+                <br><br>
+                <input type=\"submit\" value=\"Send the message >>>\">
+            </fieldset>
+        </form>
+        <form action=\"";
+        // line 32
+        echo twig_escape_filter($this->env, ($context["peekmessages"] ?? null), "html", null, true);
+        echo "\" method=\"post\">
+            <fieldset>
+                <legend>Peek the messages</legend>
+                <input type=\"submit\" value=\"Peek >>>\">
             </fieldset>
         </form>
     </div>
@@ -79,7 +110,7 @@ class __TwigTemplate_fc56857d3d1cca4b3de58b9dab1beead589e85fd40531ea6027c9f1095b
 
     public function getDebugInfo()
     {
-        return array (  60 => 14,  54 => 11,  46 => 6,  42 => 4,  39 => 3,  33 => 2,  15 => 1,);
+        return array (  90 => 32,  82 => 27,  76 => 24,  68 => 19,  60 => 14,  54 => 11,  46 => 6,  42 => 4,  39 => 3,  33 => 2,  15 => 1,);
     }
 
     public function getSourceContext()

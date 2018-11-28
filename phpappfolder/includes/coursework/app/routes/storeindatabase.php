@@ -18,14 +18,12 @@ $app->post(
         $sanitised_metadata = $validator->sanitise_string($tainted_metadata);
 
 
-        $message_wrapper = $this->get('message_wrapper');
         $wrapper_mysql = $this->get('mysql_wrapper');
         $db_handle = $this->get('dbase');
         $sql_queries = $this->get('sql_queries');
         $message_model = $this->get('message_model');
 
         $message_model->set_message_values($sanitised_content, $sanitised_metadata);
-        $message_model->set_wrapper_message_file($message_wrapper);
         $message_model->set_wrapper_message_db($wrapper_mysql);
         $message_model->set_db_handle($db_handle);
         $message_model->set_sql_queries($sql_queries);

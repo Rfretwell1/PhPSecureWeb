@@ -17,6 +17,9 @@ $url_root = implode('/', explode('/', $url_root, -1));
 $css_path = $url_root . '/css/coursework.css';
 define('CSS_PATH', $css_path);
 
+$wsdl = 'https://m2mconnect.ee.co.uk/orange-soap/services/MessageServiceByCountry?wsdl';
+define('WSDL', $wsdl);
+
 $settings = [
     "settings" => [
         'displayErrorDetails' => true,

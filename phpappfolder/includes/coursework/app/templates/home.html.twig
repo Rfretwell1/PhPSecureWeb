@@ -3,7 +3,7 @@
 {% block content %}
     <div id="page-content-div">
         <p>Very basic webpage</p>
-        <form action="{{ action }}" method="post">
+        <form action="{{ storeindatabase }}" method="post">
             <fieldset>
                 <legend>Store message in database</legend>
                 <br>
@@ -11,9 +11,28 @@
                 <input id="content" name="content" type="text" value="{{ initial_input_box_value }}" size="30" maxlength="50">
                 <br><br>
                 <label for="metadata">Message metadata:</label>
-                <input id="metadata" name="metadata" type="password" value="{{ initial_input_box_value }}" size="30" maxlength="50">
+                <input id="metadata" name="metadata" type="text" value="{{ initial_input_box_value }}" size="30" maxlength="50">
                 <br><br>
                 <input type="submit" value="Store the information >>>">
+            </fieldset>
+        </form>
+        <form action="{{ sendmessage }}" method="post">
+            <fieldset>
+                <legend>Send an SMS message</legend>
+                <br>
+                <label for="number">Phone number:</label>
+                <input id="number" name="number" type="text" value="{{ initial_input_box_value }}" size="30" maxlength="50">
+                <br><br>
+                <label for="message">Message:</label>
+                <input id="message" name="message" type="text" value="{{ initial_input_box_value }}" size="30" maxlength="50">
+                <br><br>
+                <input type="submit" value="Send the message >>>">
+            </fieldset>
+        </form>
+        <form action="{{ peekmessages }}" method="post">
+            <fieldset>
+                <legend>Peek the messages</legend>
+                <input type="submit" value="Peek >>>">
             </fieldset>
         </form>
     </div>
