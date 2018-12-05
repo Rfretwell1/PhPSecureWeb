@@ -69,6 +69,8 @@ class MessageModel
         return $obj_soap_client_handle;
     }
 
+    /*
+    //Old function to send an inputted message to any number
     public function sendMessage($soapClient, $number, $message) {
         try {
             $soapClient->sendMessage('18JoshDavis', 'Greggs123', $number, $message, false, 'SMS');
@@ -77,17 +79,93 @@ class MessageModel
             trigger_error($obj_exception);
         }
         return $soapClient->__getLastRequest();
+    }*/
+
+    /** Takes the state of the circuit board and encodes it as an XML string, to be later sent to the EE server. */
+    public function encodeMessage($circuitBoard) {
+        $switches       = $circuitBoard['switches'];
+        $fan            = $circuitBoard['fan'];
+        $temperature    = $circuitBoard['temperature'];
+        $keypad         = $circuitBoard['keypad'];
+        $encodedMessage = '{"id":"18-3110-AJ",';
+
+        $i = -1;
+        foreach($switches as $switch) {
+            $i++;
+            if($switch == true) {
+                $encodedMessage .= "\"s$i\":\"on\",";
+            }
+            else {
+                $encodedMessage .= "\"s$i\":\"off\",";
+            }
+        }
+
+        if($fan == true) {
+            $encodedMessage .= "\"fan\":\"on\",";
+        }
+        else {
+            $encodedMessage .= "\"fan\":\"off\",";
+        }
+
+        $encodedMessage .= "\"temp\":\"$temperature\",";
+        $encodedMessage .= "\"keypad\":\"$keypad\"}";
+
+
+        //TODO - simulate circuit board
+
+        var_dump($encodedMessage);
+
+        $stripSlashed = stripslashes($encodedMessage);
+        var_dump($stripSlashed);
+
+        return $stripSlashed;
     }
 
-    public function peekMessages($soapClient) {
+    public function sendMessage($soapClient, $encodedMessage) {
         try {
-            $soapClient->peekMessages('18JoshDavis', 'Greggs123', 100, '+447817814149');
+            $soapClient->sendMessage('18JoshDavis', 'Greggs123', '+447817814149', $encodedMessage, false, 'SMS');
         }
         catch (SoapFault $obj_exception) {
             trigger_error($obj_exception);
         }
         return $soapClient->__getLastRequest();
     }
+
+    public function peekMessages($soapClient)
+    {
+        try {
+            $messagesArray = $soapClient->peekMessages('18JoshDavis', 'Greggs123', 100, '+447817814149');
+        } catch (SoapFault $obj_exception) {
+            trigger_error($obj_exception);
+        }
+        return $messagesArray;
+    }
+
+    //TODO - VALIDATE XML (in MessageValidator.php)
+
+    public function parseMessages($messagesArray) {
+        $parsedMessages = [];
+        libxml_use_internal_errors(true);
+        foreach($messagesArray as $message) {
+            $message = simplexml_load_string($message);
+            array_push($parsedMessages, $message);
+        }
+
+        return $parsedMessages;
+    }
+
+    public function convertMessagesToJSON($xmlMessages) {
+        $messagesJSON = [];
+
+        foreach($xmlMessages as $xmlMessage) {
+            //$xml = simplexml_load_string($xmlMessage);
+            $json = json_encode($xmlMessage);
+            array_push($messagesJSON, $json);
+        }
+
+        return $messagesJSON;
+    }
+
 
     public function get_storage_result()
     {

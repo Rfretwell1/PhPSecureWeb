@@ -17,7 +17,15 @@ $app->post(
         $message_model = $this->get('message_model');
         $soap = $message_model->createSoapClient();
 
-        $message_model->sendMessage($soap, $tainted_number, $sanitised_message);
+        //$message_model->sendMessage($soap, $tainted_number, $sanitised_message);
+        //$object = (object) ['property' => 'Here we go'];
+
+        $keypad_state_object =['switches' => [true, false, false, true], 'fan' => true, 'temperature' => 32, 'keypad' => 4732];
+
+        //$keypad_state_object = {switches: [true, true, false, true], fan: true, temperature: 43, keypad: 4732};
+
+        $encodedMessage = $message_model->encodeMessage($keypad_state_object);
+        $message_model->sendMessage($soap, $encodedMessage);
 
 
         return $this->view->render($response,
