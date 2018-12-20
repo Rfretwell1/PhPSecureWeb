@@ -37,13 +37,21 @@ class __TwigTemplate_0eb9bdbdda9bd7adcdc1d512f81c9f2ea058431c2c918ae85a6e76a2b5a
         // line 4
         echo twig_escape_filter($this->env, ($context["storage_text"] ?? null), "html", null, true);
         echo "</h4>
-        Number: ";
+        Switches: ";
         // line 5
-        echo twig_escape_filter($this->env, ($context["number"] ?? null), "html", null, true);
+        echo twig_escape_filter($this->env, ($context["switches"] ?? null), "html", null, true);
         echo " </br>
-        Message: ";
+        Fan: ";
         // line 6
-        echo twig_escape_filter($this->env, ($context["message"] ?? null), "html", null, true);
+        echo twig_escape_filter($this->env, ($context["fan"] ?? null), "html", null, true);
+        echo "</br>
+        Heater temperature: ";
+        // line 7
+        echo twig_escape_filter($this->env, ($context["heater"] ?? null), "html", null, true);
+        echo "</br>
+        Keypad: ";
+        // line 8
+        echo twig_escape_filter($this->env, ($context["keypad"] ?? null), "html", null, true);
         echo "
     </div>
 ";
@@ -61,7 +69,7 @@ class __TwigTemplate_0eb9bdbdda9bd7adcdc1d512f81c9f2ea058431c2c918ae85a6e76a2b5a
 
     public function getDebugInfo()
     {
-        return array (  46 => 6,  42 => 5,  38 => 4,  35 => 3,  32 => 2,  15 => 1,);
+        return array (  54 => 8,  50 => 7,  46 => 6,  42 => 5,  38 => 4,  35 => 3,  32 => 2,  15 => 1,);
     }
 
     public function getSourceContext()

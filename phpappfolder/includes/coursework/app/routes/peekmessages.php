@@ -10,12 +10,12 @@ $app->post(
         $message_model = $this->get('message_model');
         $soap = $message_model->createSoapClient();
         $peeked_messages = $message_model->peekMessages($soap);
-        $parsed_messages = $message_model->parseMessages($peeked_messages);
-        $messages_json = $message_model->convertMessagesToJSON($parsed_messages);
+        //$parsed_messages = $message_model->parseMessages($peeked_messages);
+        $messages_json = $message_model->convertMessagesToJSON($peeked_messages);
 
         var_dump($messages_json);
 
-        var_dump($parsed_messages);
+        //var_dump($parsed_messages);
 
         var_dump($peeked_messages);
 

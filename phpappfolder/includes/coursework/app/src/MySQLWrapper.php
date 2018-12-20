@@ -27,14 +27,30 @@ class MySQLWrapper
     $this->c_obj_sql_queries = $p_obj_sql_queries;
   }
 
-  public function insert_message_details($p_message_content, $p_message_metadata) {
+  //OLD
+  /*public function insert_message_details($p_message_content, $p_message_metadata) {
       $m_query_string = $this->c_obj_sql_queries->insert_message_details();
       $m_arr_query_parameters = [
           ':message_content' => $p_message_content,
           ':message_metadata' => $p_message_metadata,
       ];
       $this->safe_query($m_query_string, $m_arr_query_parameters);
-  }
+  }*/
+
+    public function insert_message_details($p_msg_timestamp, $p_msg_switches, $p_msg_fan, $p_msg_temp, $p_msg_keypad) {
+        $m_query_string = $this->c_obj_sql_queries->insert_message_details();
+        $m_arr_query_parameters = [
+            ':msg_timestamp' => $p_msg_timestamp,
+            ':msg_switch1' => $p_msg_switches[0],
+            ':msg_switch2' => $p_msg_switches[1],
+            ':msg_switch3' => $p_msg_switches[2],
+            ':msg_switch4' => $p_msg_switches[3],
+            ':msg_fan' => $p_msg_fan,
+            ':msg_temperature' => $p_msg_temp,
+            ':msg_keypad' => $p_msg_keypad,
+        ];
+        $this->safe_query($m_query_string, $m_arr_query_parameters);
+    }
 
   public function safe_query($p_query_string, $p_arr_params = null)
   {

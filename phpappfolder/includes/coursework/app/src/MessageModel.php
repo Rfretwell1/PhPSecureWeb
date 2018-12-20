@@ -2,8 +2,6 @@
 
 class MessageModel
 {
-    private $c_content;
-    private $c_metadata;
     private $c_arr_storage_result;
     private $c_obj_wrapper_message_file;
     private $c_obj_wrapper_message_db;
@@ -22,12 +20,6 @@ class MessageModel
     }
 
     public function __destruct() { }
-
-    public function set_message_values($p_content, $p_metadata)
-    {
-        $this->c_content = $p_content;
-        $this->c_metadata = $p_metadata;
-    }
 
     public function set_wrapper_message_file($p_obj_wrapper_message)
     {
@@ -82,7 +74,8 @@ class MessageModel
     }*/
 
     /** Takes the state of the circuit board and encodes it as an XML string, to be later sent to the EE server. */
-    public function encodeMessage($circuitBoard) {
+    // MOVED TO CircuitboardModel - keeping this just in case (for now)
+    /*public function encodeMessage($circuitBoard) {
         $switches       = $circuitBoard['switches'];
         $fan            = $circuitBoard['fan'];
         $temperature    = $circuitBoard['temperature'];
@@ -111,7 +104,7 @@ class MessageModel
         $encodedMessage .= "\"keypad\":\"$keypad\"}";
 
 
-        //TODO - simulate circuit board
+
 
         var_dump($encodedMessage);
 
@@ -119,7 +112,7 @@ class MessageModel
         var_dump($stripSlashed);
 
         return $stripSlashed;
-    }
+    }*/
 
     public function sendMessage($soapClient, $encodedMessage) {
         try {
@@ -143,6 +136,7 @@ class MessageModel
 
     //TODO - VALIDATE XML (in MessageValidator.php)
 
+    //TODO - fix this broke ass simpleXML stuff (works on uni pcs but not on vm? simplexml_load_string is undefined
     public function parseMessages($messagesArray) {
         $parsedMessages = [];
         libxml_use_internal_errors(true);
@@ -179,7 +173,8 @@ class MessageModel
         $this->c_obj_wrapper_message_db->set_db_handle( $this->c_obj_db_handle);
         $this->c_obj_wrapper_message_db->set_sql_queries( $this->c_obj_sql_queries);
 
-        $m_store_result = $this->c_obj_wrapper_message_db->insert_message_details($this->c_content, $this->c_metadata);
+        //TODO - figure out a model for storing downloaded msgs locally, remove this placeholder \/
+        $m_store_result = $this->c_obj_wrapper_message_db->insert_message_details('timestamp', [true, false, true, true], 'fwd', 35.4, 5124);
 
         return $m_store_result;
     }

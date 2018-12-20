@@ -40,53 +40,52 @@ class __TwigTemplate_fc56857d3d1cca4b3de58b9dab1beead589e85fd40531ea6027c9f1095b
     {
         // line 4
         echo "    <div id=\"page-content-div\">
-        <p>Very basic webpage</p>
+        <p>EE M2M Connect Message Sender/Receiver</p>
         <form action=\"";
         // line 6
-        echo twig_escape_filter($this->env, ($context["storeindatabase"] ?? null), "html", null, true);
-        echo "\" method=\"post\">
-            <fieldset>
-                <legend>Store message in database</legend>
-                <br>
-                <label for=\"content\">Message content:</label>
-                <input id=\"content\" name=\"content\" type=\"text\" value=\"";
-        // line 11
-        echo twig_escape_filter($this->env, ($context["initial_input_box_value"] ?? null), "html", null, true);
-        echo "\" size=\"30\" maxlength=\"50\">
-                <br><br>
-                <label for=\"metadata\">Message metadata:</label>
-                <input id=\"metadata\" name=\"metadata\" type=\"text\" value=\"";
-        // line 14
-        echo twig_escape_filter($this->env, ($context["initial_input_box_value"] ?? null), "html", null, true);
-        echo "\" size=\"30\" maxlength=\"50\">
-                <br><br>
-                <input type=\"submit\" value=\"Store the information >>>\">
-            </fieldset>
-        </form>
-        <form action=\"";
-        // line 19
         echo twig_escape_filter($this->env, ($context["sendmessage"] ?? null), "html", null, true);
         echo "\" method=\"post\">
             <fieldset>
-                <legend>Send an SMS message</legend>
+                <legend>Configure a virtual circuit board & send information on its state to the EE server.</legend>
                 <br>
-                <label for=\"number\">Phone number:</label>
-                <input id=\"number\" name=\"number\" type=\"text\" value=\"";
-        // line 24
+
+                <label for=\"switches\">Switches (on/off):</label>
+                <input id=\"switch1\" name =\"switch1\" type=\"checkbox\" value=\"on\">
+                <input id=\"switch2\" name =\"switch2\" type=\"checkbox\" value=\"on\">
+                <input id=\"switch3\" name =\"switch3\" type=\"checkbox\" value=\"on\">
+                <input id=\"switch4\" name =\"switch4\" type=\"checkbox\" value=\"on\">
+                <br><br>
+
+
+                <label for=\"fan\">Fan state:</label><br>
+                <input id=\"fan\" name=\"fan\" type=\"radio\" value=\"fwd\" checked> Forward <br>
+                <input id=\"fan\" name=\"fan\" type=\"radio\" value=\"rev\"> Reverse
+                <br><br>
+
+                <label for=\"heater\">Heater temperature (*C):</label>
+                <input id=\"heater\" name=\"heater\" type=\"text\" value=\"";
+        // line 25
         echo twig_escape_filter($this->env, ($context["initial_input_box_value"] ?? null), "html", null, true);
         echo "\" size=\"30\" maxlength=\"50\">
                 <br><br>
-                <label for=\"message\">Message:</label>
-                <input id=\"message\" name=\"message\" type=\"text\" value=\"";
-        // line 27
+
+                <label for=\"keypad\">Keypad value:</label>
+                <input id=\"keypad\" name=\"keypad\" type=\"text\" value=\"";
+        // line 29
         echo twig_escape_filter($this->env, ($context["initial_input_box_value"] ?? null), "html", null, true);
         echo "\" size=\"30\" maxlength=\"50\">
                 <br><br>
-                <input type=\"submit\" value=\"Send the message >>>\">
+
+                <input type=\"submit\" value=\"Send message >>>\"><br>
+                <p>";
+        // line 33
+        echo twig_escape_filter($this->env, ($context["sentmessage"] ?? null), "html", null, true);
+        echo "</p>
             </fieldset>
         </form>
+
         <form action=\"";
-        // line 32
+        // line 37
         echo twig_escape_filter($this->env, ($context["peekmessages"] ?? null), "html", null, true);
         echo "\" method=\"post\">
             <fieldset>
@@ -110,7 +109,7 @@ class __TwigTemplate_fc56857d3d1cca4b3de58b9dab1beead589e85fd40531ea6027c9f1095b
 
     public function getDebugInfo()
     {
-        return array (  90 => 32,  82 => 27,  76 => 24,  68 => 19,  60 => 14,  54 => 11,  46 => 6,  42 => 4,  39 => 3,  33 => 2,  15 => 1,);
+        return array (  89 => 37,  82 => 33,  75 => 29,  68 => 25,  46 => 6,  42 => 4,  39 => 3,  33 => 2,  15 => 1,);
     }
 
     public function getSourceContext()

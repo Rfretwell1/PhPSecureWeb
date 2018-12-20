@@ -33,6 +33,14 @@ $container['message_model'] = function ($container) {
     return $model;
 };
 
+$container['circuitboard_model'] = function ($container) {
+    $class_path = $container->get('settings')['class_path'];
+    require $class_path . 'CircuitboardModel.php';
+    $model = new CircuitboardModel();
+    return $model;
+};
+
+
 $container['mysql_wrapper'] = function ($container) {
 $class_path = $container->get('settings')['class_path'];
 require $class_path . 'MySQLWrapper.php';
