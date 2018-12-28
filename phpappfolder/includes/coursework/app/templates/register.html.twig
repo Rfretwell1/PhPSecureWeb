@@ -1,0 +1,23 @@
+{% extends 'layout.html.twig' %}
+{% block title %}{{ page_title }}{% endblock %}
+{% block content %}
+    <div id="page-content-div">
+        <p>Registration</p>
+        <form action="{{ registrationsubmit }}" method="post">
+            <fieldset>
+                <legend>Registration</legend>
+                <br>
+
+                <label for="username">Username:</label>
+                <input id="username" name="username" type="text" value="{{ initial_input_box_value }}" size="30" maxlength="50">
+                <br><br>
+
+                <label for="password">Password:</label>
+                <input id="password" name="password" type="password" value="{{ initial_input_box_value }}" size="30" maxlength="50">
+                <br><br>
+
+                <input type="submit" value="Register >>>"><br>
+            </fieldset>
+        </form>
+    </div>
+{% endblock %}

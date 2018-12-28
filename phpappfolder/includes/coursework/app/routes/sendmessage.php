@@ -24,6 +24,17 @@ $app->post(
         $soap = $message_model->createSoapClient();
         $message_model->sendMessage($soap, $encodedMessage);
 
+        $wrapper_mysql = $this->get('mysql_wrapper');
+        $db_handle = $this->get('dbase');
+        $sql_queries = $this->get('sql_queries');
+
+        $message_model->set_wrapper_message_db($wrapper_mysql);
+        $message_model->set_db_handle($db_handle);
+        $message_model->set_sql_queries($sql_queries);
+        $message_model->store_data();
+        $store_result = $message_model->get_storage_result();
+        var_dump($store_result);
+
 
         /*return $this->view->render($response,
             'display_sent_message.html.twig',

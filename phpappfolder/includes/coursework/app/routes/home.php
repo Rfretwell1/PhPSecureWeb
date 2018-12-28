@@ -13,6 +13,7 @@ $app->get('/', function(Request $request, Response $response)
             'storeindatabase' => 'index.php/storeindatabase',
             'sendmessage' => 'index.php/sendmessage',
             'peekmessages' => 'index.php/peekmessages',
+            'register' => 'index.php/register',
             'page_title' => 'Coursework',
         ]);
 })->setName('home');

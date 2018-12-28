@@ -19,10 +19,38 @@ $container['view'] = function ($container) {
     return $view;
 };
 
+$container['base64_wrapper'] = function ($container) {
+    $class_path = $container->get('settings')['class_path'];
+    require $class_path . 'Base64Wrapper.php';
+    $wrapper = new Base64Wrapper();
+    return $wrapper;
+};
+
+$container['bcrypt_wrapper'] = function ($container) {
+    $class_path = $container->get('settings')['class_path'];
+    require $class_path . 'BcryptWrapper.php';
+    $wrapper = new BcryptWrapper();
+    return $wrapper;
+};
+
+$container['libsodium_wrapper'] = function ($container) {
+    $class_path = $container->get('settings')['class_path'];
+    require $class_path . 'LibSodiumWrapper.php';
+    $wrapper = new LibSodiumWrapper();
+    return $wrapper;
+};
+
 $container['message_validator'] = function ($container) {
     $class_path = $container->get('settings')['class_path'];
     require $class_path . 'MessageValidator.php';
     $validator = new MessageValidator();
+    return $validator;
+};
+
+$container['validator'] = function ($container) {
+    $class_path = $container->get('settings')['class_path'];
+    require $class_path . 'Validator.php';
+    $validator = new Validator();
     return $validator;
 };
 

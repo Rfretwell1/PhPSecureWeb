@@ -18,3 +18,5 @@ require 'routes/sendmessage.php';
 require 'routes/displaysentmessage.php';
 require 'routes/peekmessages.php';
 require 'routes/displaypeekedmessages.php';
+require 'routes/register.php';
+require 'routes/submitregistration.php';

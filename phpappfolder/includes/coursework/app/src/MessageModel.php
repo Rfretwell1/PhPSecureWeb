@@ -166,6 +166,31 @@ class MessageModel
         return $this->c_arr_storage_result;
     }
 
+    public function check_if_user_exists($p_acct_name) {
+        $m_store_result = false;
+
+        $this->c_obj_wrapper_message_db->set_db_handle( $this->c_obj_db_handle);
+        $this->c_obj_wrapper_message_db->set_sql_queries( $this->c_obj_sql_queries);
+
+        //TODO - figure out a model for storing downloaded msgs locally, remove this placeholder \/
+        $m_store_result = $this->c_obj_wrapper_message_db->check_if_user_exists($p_acct_name);
+
+        return $m_store_result;
+    }
+
+
+    public function store_account_data($p_acct_name, $p_acct_password) {
+        $m_store_result = false;
+
+        $this->c_obj_wrapper_message_db->set_db_handle( $this->c_obj_db_handle);
+        $this->c_obj_wrapper_message_db->set_sql_queries( $this->c_obj_sql_queries);
+
+        //TODO - figure out a model for storing downloaded msgs locally, remove this placeholder \/
+        $m_store_result = $this->c_obj_wrapper_message_db->insert_account_details($p_acct_name, $p_acct_password);
+
+        return $m_store_result;
+    }
+
     public function store_data()
     {
         $m_store_result = false;
@@ -174,7 +199,7 @@ class MessageModel
         $this->c_obj_wrapper_message_db->set_sql_queries( $this->c_obj_sql_queries);
 
         //TODO - figure out a model for storing downloaded msgs locally, remove this placeholder \/
-        $m_store_result = $this->c_obj_wrapper_message_db->insert_message_details('timestamp', [true, false, true, true], 'fwd', 35.4, 5124);
+        $m_store_result = $this->c_obj_wrapper_message_db->insert_message_details('timestamp', [0, 1, 0, 1], 'fwd', 35.4, 5124);
 
         return $m_store_result;
     }

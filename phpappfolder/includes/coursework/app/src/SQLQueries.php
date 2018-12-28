@@ -13,4 +13,21 @@ class SQLQueries
 
         return $m_query_string;
     }
+
+    public static function insert_account_details() {
+        $m_query_string =  "INSERT INTO accounts (acct_name, acct_password)
+                            VALUES(:acct_name, :acct_password)
+                            ";
+
+        return $m_query_string;
+    }
+
+    public static function check_if_user_exists() {
+        $m_query_string =  "SELECT acct_id, IF(acct_name =\":acct_name\", \"true\", \"false\") as does_user_exist
+                            FROM accounts
+                            ";
+
+        return $m_query_string;
+    }
+
 }

@@ -20,6 +20,9 @@ define('CSS_PATH', $css_path);
 $wsdl = 'https://m2mconnect.ee.co.uk/orange-soap/services/MessageServiceByCountry?wsdl';
 define('WSDL', $wsdl);
 
+define ('BCRYPT_ALGO', PASSWORD_DEFAULT);
+define ('BCRYPT_COST', 12);
+
 $settings = [
     "settings" => [
         'displayErrorDetails' => true,
