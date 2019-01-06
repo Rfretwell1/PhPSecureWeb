@@ -22,10 +22,16 @@ class SQLQueries
         return $m_query_string;
     }
 
-    public static function check_if_user_exists() {
+    /*public static function check_if_user_exists() {
         $m_query_string =  "SELECT acct_id, IF(acct_name =\":acct_name\", \"true\", \"false\") as does_user_exist
                             FROM accounts
                             ";
+
+        return $m_query_string;
+    }*/
+
+    public static function check_if_user_exists() {
+        $m_query_string =  "SELECT * FROM accounts WHERE acct_name = :acct_name";
 
         return $m_query_string;
     }

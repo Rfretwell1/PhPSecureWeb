@@ -40,9 +40,13 @@ class __TwigTemplate_fc56857d3d1cca4b3de58b9dab1beead589e85fd40531ea6027c9f1095b
     {
         // line 4
         echo "    <div id=\"page-content-div\">
+        <p>Login | <a href=\"";
+        // line 5
+        echo twig_escape_filter($this->env, ($context["register"] ?? null), "html", null, true);
+        echo "\">Register</a></p>
         <p>EE M2M Connect Message Sender/Receiver</p>
         <form action=\"";
-        // line 6
+        // line 7
         echo twig_escape_filter($this->env, ($context["sendmessage"] ?? null), "html", null, true);
         echo "\" method=\"post\">
             <fieldset>
@@ -64,28 +68,28 @@ class __TwigTemplate_fc56857d3d1cca4b3de58b9dab1beead589e85fd40531ea6027c9f1095b
 
                 <label for=\"heater\">Heater temperature (*C):</label>
                 <input id=\"heater\" name=\"heater\" type=\"text\" value=\"";
-        // line 25
+        // line 26
         echo twig_escape_filter($this->env, ($context["initial_input_box_value"] ?? null), "html", null, true);
         echo "\" size=\"30\" maxlength=\"50\">
                 <br><br>
 
                 <label for=\"keypad\">Keypad value:</label>
                 <input id=\"keypad\" name=\"keypad\" type=\"text\" value=\"";
-        // line 29
+        // line 30
         echo twig_escape_filter($this->env, ($context["initial_input_box_value"] ?? null), "html", null, true);
         echo "\" size=\"30\" maxlength=\"50\">
                 <br><br>
 
                 <input type=\"submit\" value=\"Send message >>>\"><br>
                 <p>";
-        // line 33
+        // line 34
         echo twig_escape_filter($this->env, ($context["sentmessage"] ?? null), "html", null, true);
         echo "</p>
             </fieldset>
         </form>
 
         <form action=\"";
-        // line 37
+        // line 38
         echo twig_escape_filter($this->env, ($context["peekmessages"] ?? null), "html", null, true);
         echo "\" method=\"post\">
             <fieldset>
@@ -109,7 +113,7 @@ class __TwigTemplate_fc56857d3d1cca4b3de58b9dab1beead589e85fd40531ea6027c9f1095b
 
     public function getDebugInfo()
     {
-        return array (  89 => 37,  82 => 33,  75 => 29,  68 => 25,  46 => 6,  42 => 4,  39 => 3,  33 => 2,  15 => 1,);
+        return array (  93 => 38,  86 => 34,  79 => 30,  72 => 26,  50 => 7,  45 => 5,  42 => 4,  39 => 3,  33 => 2,  15 => 1,);
     }
 
     public function getSourceContext()

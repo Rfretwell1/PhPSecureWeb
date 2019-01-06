@@ -42,7 +42,10 @@ class MySQLWrapper
       $m_arr_query_parameters = [
           ':acct_name' => $p_acct_name,
       ];
-      $this->safe_query_2($m_query_string, $m_arr_query_parameters);
+
+      $result = $this->safe_query_2($m_query_string, $m_arr_query_parameters);
+      var_dump($result);
+      return $result;
   }
 
     public function insert_message_details($p_msg_timestamp, $p_msg_switches, $p_msg_fan, $p_msg_temp, $p_msg_keypad) {
@@ -75,6 +78,8 @@ class MySQLWrapper
         $m_query_string = $p_query_string;
         $m_arr_query_parameters = $p_arr_params;
 
+        var_dump($m_arr_query_parameters);
+
         try
         {
             $m_temp = array();
@@ -96,6 +101,7 @@ class MySQLWrapper
             $m_execute_result = $this->c_obj_stmt->fetchAll();
             var_dump($m_execute_result);
             $this->c_arr_errors['execute-OK'] = $m_execute_result;
+            $result = $m_execute_result;
         }
         catch (PDOException $exception_object)
         {
@@ -106,8 +112,11 @@ class MySQLWrapper
             // NB would usually output to file for sysadmin attention
             $this->c_arr_errors['db_error'] = true;
             $this->c_arr_errors['sql_error'] = $m_error_message;
+            $result=$this->c_arr_errors;
         }
-        return $this->c_arr_errors['db_error'];
+        //return $this->c_arr_errors['db_error'];
+
+        return $result;
     }
 
   public function safe_query($p_query_string, $p_arr_params = null)

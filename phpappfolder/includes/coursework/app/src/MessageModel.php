@@ -174,8 +174,13 @@ class MessageModel
 
         //TODO - figure out a model for storing downloaded msgs locally, remove this placeholder \/
         $m_store_result = $this->c_obj_wrapper_message_db->check_if_user_exists($p_acct_name);
+        var_dump($m_store_result);
 
-        return $m_store_result;
+        if(sizeof($m_store_result) != 0) {
+            $result = true;
+        }
+        else $result = false;
+        return $result;
     }
 
 

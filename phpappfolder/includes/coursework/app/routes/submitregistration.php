@@ -37,21 +37,41 @@ $app->post(
         $message_model->set_wrapper_message_db($wrapper_mysql);
         $message_model->set_db_handle($db_handle);
         $message_model->set_sql_queries($sql_queries);
-        //$message_model->store_data();
-        $message_model->check_if_user_exists($cleaned_username);
-        $store_result = $message_model->get_storage_result();
+        $doesUserExist = $message_model->check_if_user_exists($cleaned_username);
+
+        if(!$doesUserExist) {
+            $message_model->store_account_data($cleaned_username, $hashed_password);
+            return $this->view->render($response,
+                'display_registration_result.html.twig',
+                [
+                    'landing_page' => $_SERVER["SCRIPT_NAME"],
+                    //'action' => 'index.php/displaymessagedetails',
+                    'username' => $cleaned_username,
+                    'password' => $hashed_password,
+                    'css_path' => CSS_PATH,
+                ]);
+        }
+        else {
+            return $this->view->render($response,
+                'register.html.twig',
+                [
+                    'css_path' => CSS_PATH,
+                    'landing_page' => $_SERVER["SCRIPT_NAME"],
+                    'registrationsubmit' => 'registrationsubmit',
+                    'page_title' => 'Register',
+                    'useralreadyexists' => 'A user with that name already exists.',
+
+                ]);
+
+        }
+
+
+        /*$store_result = $message_model->get_storage_result();
         var_dump($store_result);
-        $message_model->store_account_data($cleaned_username, $hashed_password);
+
         //$message_model->store_account_data($cleaned_username, $hashed_password);
         $store_result = $message_model->get_storage_result();
-        var_dump($store_result);
-
-
-
-
-
-
-
+        var_dump($store_result);*/
 
         /*$message_model = $this->get('message_model');
 
@@ -61,19 +81,5 @@ $app->post(
         $message_model->store_data();
         $store_result = $message_model->get_storage_result();
         var_dump($store_result);*/
-
-
-
-        $arr_storage_result_message = '';
-        return $this->view->render($response,
-            'display_registration_result.html.twig',
-            [
-                'landing_page' => $_SERVER["SCRIPT_NAME"],
-                //'action' => 'index.php/displaymessagedetails',
-                'username' => $cleaned_username,
-                'password' => $hashed_password,
-                'css_path' => CSS_PATH,
-                'storage_result_message' => $arr_storage_result_message,
-            ]);
 
     });

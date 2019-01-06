@@ -14,10 +14,11 @@
 
                 <label for="password">Password:</label>
                 <input id="password" name="password" type="password" value="{{ initial_input_box_value }}" size="30" maxlength="50">
-                <br><br>
-
+                <br>
+                <p style="color: red">{{ useralreadyexists }}</p>
                 <input type="submit" value="Register >>>"><br>
             </fieldset>
+
         </form>
     </div>
 {% endblock %}
