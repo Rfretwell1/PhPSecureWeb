@@ -43,17 +43,14 @@ class CircuitboardModel
         $this->keypad = $p_keypad;
     }
 
-<<<<<<< HEAD
-    public function create_circuitboard_message_json() {
-=======
+
     /**
      * @return string which will return the JSON formatted string for the message
      * showing the current state of the circut board.
      * encoded message for switch will display whether it is on or off.
      * encoded mssage for fan, temp, keypad will display the variables set from the objects.
      */
-    public function create_circuitboard_message() {
->>>>>>> 353a71e80174f902a8c74b36a09302a9feaf4d37
+    public function create_circuitboard_message_json() {
         $f_switches       = $this->switches;
         $f_fan            = $this->fan;
         $f_temperature    = $this->temperature;
@@ -74,11 +71,11 @@ class CircuitboardModel
 
         $f_encodedMessage .= "\"fan\":\"$f_fan\",";
         $f_encodedMessage .= "\"temp\":\"$f_temperature\",";
-<<<<<<< HEAD
+
         $f_encodedMessage .= "\"keypad\":\"$f_keypad\"";
-=======
+
         $f_encodedMessage .= "\"keypad\":\"$f_keypad\"}";
->>>>>>> 353a71e80174f902a8c74b36a09302a9feaf4d37
+
 
         var_dump($f_encodedMessage);
 
