@@ -16,6 +16,10 @@ class Base64Wrapper
 
     public function __destruct(){}
 
+    /**
+     * @param $string_to_encode
+     * @return bool|string
+     */
     public function encode_base64($string_to_encode)
     {
         $encoded_string = false;

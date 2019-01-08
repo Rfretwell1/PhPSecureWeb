@@ -166,6 +166,11 @@ class MessageModel
         return $this->c_arr_storage_result;
     }
 
+    /**
+     * When registering, users selected username will be checked to see if it is already taken.
+     * if the username is taken it will alert the user that that user name is already taken.
+     * if the username is not already in use it will allow the user to create an account with that selected username.
+     */
     public function check_if_user_exists($p_acct_name) {
         $m_store_result = false;
 
@@ -183,7 +188,14 @@ class MessageModel
         return $result;
     }
 
-
+    /**
+     * @param $p_acct_name - username stored in the database
+     * @param $p_acct_password - encrypted password stored in the database
+     * @return bool - returns true or false if stored in the database or not
+     * gets called if user doesn't exist when attempting to login
+     * username and password get stored in the database once the account is registered.
+     * password will be encrypted (bcrypt)
+     */
     public function store_account_data($p_acct_name, $p_acct_password) {
         $m_store_result = false;
 
@@ -196,6 +208,10 @@ class MessageModel
         return $m_store_result;
     }
 
+    /**
+     * @return bool boolean for storing or not storing the data.
+     * in this case, the result is set to false.
+     */
     public function store_data()
     {
         $m_store_result = false;
