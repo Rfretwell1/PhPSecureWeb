@@ -152,7 +152,7 @@ class MessageModel
         $messagesJSON = [];
 
         foreach($xmlMessages as $xmlMessage) {
-            //$xml = simplexml_load_string($xmlMessage);
+            $xml = simplexml_load_string($xmlMessage);
             $json = json_encode($xmlMessage);
             array_push($messagesJSON, $json);
         }

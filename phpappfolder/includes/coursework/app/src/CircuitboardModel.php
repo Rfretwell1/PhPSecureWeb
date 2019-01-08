@@ -28,7 +28,7 @@ class CircuitboardModel
         $this->keypad = $p_keypad;
     }
 
-    public function create_circuitboard_message() {
+    public function create_circuitboard_message_json() {
         $f_switches       = $this->switches;
         $f_fan            = $this->fan;
         $f_temperature    = $this->temperature;
@@ -49,9 +49,7 @@ class CircuitboardModel
 
         $f_encodedMessage .= "\"fan\":\"$f_fan\",";
         $f_encodedMessage .= "\"temp\":\"$f_temperature\",";
-        $f_encodedMessage .= "\"keypad\":\"$f_keypad\"}";
-
-        //TODO - simulate circuit board
+        $f_encodedMessage .= "\"keypad\":\"$f_keypad\"";
 
         var_dump($f_encodedMessage);
 
@@ -59,6 +57,32 @@ class CircuitboardModel
         var_dump($stripSlashed);
 
         return $stripSlashed;
+    }
+
+    public function create_circuitboard_message() {
+        $f_switches       = $this->switches;
+        $f_fan            = $this->fan;
+        $f_temperature    = $this->temperature;
+        $f_keypad         = $this->keypad;
+        $f_encodedMessage = '<id>18-3110-AJ</id>';
+
+        $i = 1;
+        foreach($f_switches as $switch) {
+            if($switch == true) {
+                $f_encodedMessage .= "<s$i>on</s$i>";
+            }
+            else {
+                $f_encodedMessage .= "<s$i>off</s$i>";
+            }
+
+            $i++;
+        }
+
+        $f_encodedMessage .= "<fan>$f_fan</fan>";
+        $f_encodedMessage .= "<temp>$f_temperature</temp>";
+        $f_encodedMessage .= "<kp>$f_keypad</kp>";
+
+        return $f_encodedMessage;
     }
 
 }
