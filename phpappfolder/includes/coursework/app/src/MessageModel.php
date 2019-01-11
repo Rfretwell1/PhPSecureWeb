@@ -92,8 +92,8 @@ class MessageModel
         try
         {
             $obj_soap_client_handle = new SoapClient($wsdl, $arr_soapclient);
-            var_dump($obj_soap_client_handle->__getFunctions());
-            var_dump($obj_soap_client_handle->__getTypes());
+            //var_dump($obj_soap_client_handle->__getFunctions());
+            //var_dump($obj_soap_client_handle->__getTypes());
         }
         catch (SoapFault $obj_exception)
         {
@@ -215,12 +215,43 @@ class MessageModel
 
         foreach($xmlMessages as $xmlMessage) {
             $xml = simplexml_load_string($xmlMessage);
-            $json = json_encode($xmlMessage);
+            $json = json_encode($xml);
             array_push($messagesJSON, $json);
         }
 
         return $messagesJSON;
     }
+
+    public function decodeJSON($p_encoded_json) {
+        $decoded_json_array = [];
+        foreach($p_encoded_json as $encoded_json_string) {
+            $decoded_json_object = json_decode($encoded_json_string, true);
+            array_push($decoded_json_array, $decoded_json_object);
+        }
+        return $decoded_json_array;
+    }
+
+    public function store_peeked_messages($p_decoded_json_array) {
+        $this->c_obj_wrapper_message_db->set_db_handle( $this->c_obj_db_handle);
+        $this->c_obj_wrapper_message_db->set_sql_queries( $this->c_obj_sql_queries);
+        foreach($p_decoded_json_array as $decoded_json_message) {
+            if (array_key_exists('id', $decoded_json_message['message'])) {
+                if ($decoded_json_message['message']['id'] === '18-3110-AJ') {
+                    $msg_to_insert = $decoded_json_message['message'];
+                    $msg_timestamp = $decoded_json_message['receivedtime'];
+                    $msg_switches = [$msg_to_insert['s1'], $msg_to_insert['s2'], $msg_to_insert['s3'], $msg_to_insert['s4']];
+                    $msg_fan = $msg_to_insert['fan'];
+                    $msg_temp = $msg_to_insert['temp'];
+                    $msg_keypad = $msg_to_insert['kp'];
+
+
+                    $this->c_obj_wrapper_message_db->insert_message_details($msg_timestamp, $msg_switches, $msg_fan, $msg_temp, $msg_keypad);
+                }
+
+            }
+        }
+    }
+
 
 
     /**
