@@ -239,6 +239,7 @@ class MessageModel
                 if ($decoded_json_message['message']['id'] === '18-3110-AJ') {
                     $msg_to_insert = $decoded_json_message['message'];
                     $msg_timestamp = $decoded_json_message['receivedtime'];
+
                     $msg_switches = [$msg_to_insert['s1'], $msg_to_insert['s2'], $msg_to_insert['s3'], $msg_to_insert['s4']];
                     $msg_fan = $msg_to_insert['fan'];
                     $msg_temp = $msg_to_insert['temp'];
@@ -273,7 +274,6 @@ class MessageModel
         $this->c_obj_wrapper_message_db->set_db_handle( $this->c_obj_db_handle);
         $this->c_obj_wrapper_message_db->set_sql_queries( $this->c_obj_sql_queries);
 
-        //TODO - figure out a model for storing downloaded msgs locally, remove this placeholder \/
         $m_store_result = $this->c_obj_wrapper_message_db->check_if_user_exists($p_acct_name);
         var_dump($m_store_result);
 
@@ -282,6 +282,16 @@ class MessageModel
         }
         else $result = false;
         return $result;
+    }
+
+    public function select_messages_table() {
+        $m_store_result = false;
+
+        $this->c_obj_wrapper_message_db->set_db_handle( $this->c_obj_db_handle);
+        $this->c_obj_wrapper_message_db->set_sql_queries( $this->c_obj_sql_queries);
+
+        $m_store_result = $this->c_obj_wrapper_message_db->select_messages_table();
+        return $m_store_result;
     }
 
     /**
@@ -308,6 +318,20 @@ class MessageModel
      * @return bool boolean for storing or not storing the data.
      * in this case, the result is set to false.
      */
+    public function store_message_data($msg_timestamp, $msg_switches, $msg_fan, $msg_temp, $msg_keypad)
+    {
+        $m_store_result = false;
+
+        $this->c_obj_wrapper_message_db->set_db_handle( $this->c_obj_db_handle);
+        $this->c_obj_wrapper_message_db->set_sql_queries( $this->c_obj_sql_queries);
+
+        //TODO - figure out a model for storing downloaded msgs locally, remove this placeholder \/
+        $m_store_result = $this->c_obj_wrapper_message_db->insert_message_details($msg_timestamp, $msg_switches, $msg_fan, $msg_temp, $msg_keypad);
+
+        return $m_store_result;
+    }
+
+
     public function store_data()
     {
         $m_store_result = false;

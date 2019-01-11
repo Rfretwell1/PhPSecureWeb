@@ -25,7 +25,7 @@ class SQLQueries
      * @return string - returns a string of the message values details entered by user
      */
 	public static function insert_message_details() {
-	    $m_query_string =  "INSERT INTO messages (msg_timestamp, msg_switch1, msg_switch2, msg_switch3, msg_switch4, msg_fan, msg_temperature, msg_keypad)
+	    $m_query_string =  "INSERT IGNORE INTO messages (msg_timestamp, msg_switch1, msg_switch2, msg_switch3, msg_switch4, msg_fan, msg_temperature, msg_keypad)
                             VALUES(:msg_timestamp, :msg_switch1, :msg_switch2, :msg_switch3, :msg_switch4, :msg_fan, :msg_temperature, :msg_keypad)
                             ";
 
@@ -50,6 +50,12 @@ class SQLQueries
 
         return $m_query_string;
     }*/
+
+    public static function select_messages_table() {
+        $m_query_string = "SELECT * FROM messages";
+
+        return $m_query_string;
+    }
 
     /**
      * @return string - returns a string whether or not the user exists from accounts where acct_name is stored

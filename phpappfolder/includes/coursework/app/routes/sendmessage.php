@@ -31,7 +31,9 @@ $app->post(
         $message_model->set_wrapper_message_db($wrapper_mysql);
         $message_model->set_db_handle($db_handle);
         $message_model->set_sql_queries($sql_queries);
-        $message_model->store_data();
+        //$message_model->store_data();
+        //var_dump(date(DATE_W3C));
+        $message_model->store_message_data(date(), $switches, $fan, $tainted_heater, $tainted_keypad);
         $store_result = $message_model->get_storage_result();
         var_dump($store_result);
 

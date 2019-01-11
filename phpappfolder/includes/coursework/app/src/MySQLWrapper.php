@@ -109,6 +109,11 @@ class MySQLWrapper
         $this->safe_query($m_query_string, $m_arr_query_parameters);
     }
 
+    public function select_messages_table() {
+        $m_query_string = $this->c_obj_sql_queries->select_messages_table();
+        $this->safe_query_2($m_query_string);
+    }
+
     /**
      * @param $p_query_string
      * @param null $p_arr_params
