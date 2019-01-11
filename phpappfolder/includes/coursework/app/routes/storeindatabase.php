@@ -3,6 +3,9 @@
 use Slim\Http\Request;
 use Slim\Http\Response;
 
+/**
+ *
+ */
 $app->post(
     '/storeindatabase',
     function(Request $request, Response $response) use ($app)

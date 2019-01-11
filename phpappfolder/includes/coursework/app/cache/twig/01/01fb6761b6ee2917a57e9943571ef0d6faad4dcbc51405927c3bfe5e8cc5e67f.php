@@ -5,6 +5,10 @@ class __TwigTemplate_aea026f8141c27eb2c7434a42bd4877d52a26303964a22041fc2876498e
 {
     private $source;
 
+    /**
+     * __TwigTemplate_aea026f8141c27eb2c7434a42bd4877d52a26303964a22041fc2876498e37479 constructor.
+     * @param Twig_Environment $env providing the title and content value that is constructed
+     */
     public function __construct(Twig_Environment $env)
     {
         parent::__construct($env);
@@ -19,6 +23,13 @@ class __TwigTemplate_aea026f8141c27eb2c7434a42bd4877d52a26303964a22041fc2876498e
         );
     }
 
+    /**
+     * call a procedure that defines a parameter array
+     * @param array $context - array of parameters
+     * @param array $blocks -
+     * @throws Twig_Error - declares the error thrown by the function or the method
+     * @throws Twig_Error_Runtime - declares the error run time that can be thrown by function or method
+     */
     protected function doDisplay(array $context, array $blocks = array())
     {
         // line 1

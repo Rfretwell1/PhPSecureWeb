@@ -19,7 +19,7 @@ class CircuitboardModel
     /**
      * CircuitboardModel constructor.
      * a construct is always called for when creating new objects, or invoked when the initialization takes place.
-     * A consturct for the circuit board shows here that all the initial settings are set to null. (default state)
+     * A construct for the circuit board shows here that all the initial settings are set to null. (default state)
      */
     public function __construct()
     {
@@ -30,7 +30,7 @@ class CircuitboardModel
     }
 
     /**
-     * @param $p_switches - boolen array which is 4 long, so it will be either; true, true, true, true or
+     * @param $p_switches - bool array which is 4 long, so it will be either; true, true, true, true or
      * true, true, false, false.
      * @param $p_fan - string which will either be fwd for forward or rev for reverse.
      * @param $p_temperature - integer ranging between 0 and 150 to set the temprature.
@@ -43,48 +43,12 @@ class CircuitboardModel
         $this->keypad = $p_keypad;
     }
 
-
     /**
-     * @return string which will return the JSON formatted string for the message
-     * showing the current state of the circut board.
+     * @return string which will return the XML formatted string for the message
+     * showing the current state of the circuit board.
      * encoded message for switch will display whether it is on or off.
      * encoded mssage for fan, temp, keypad will display the variables set from the objects.
      */
-    public function create_circuitboard_message_json() {
-        $f_switches       = $this->switches;
-        $f_fan            = $this->fan;
-        $f_temperature    = $this->temperature;
-        $f_keypad         = $this->keypad;
-        $f_encodedMessage = '{"id":"18-3110-AJ",';
-
-        $i = 1;
-        foreach($f_switches as $switch) {
-            if($switch == true) {
-                $f_encodedMessage .= "\"s$i\":\"on\",";
-            }
-            else {
-                $f_encodedMessage .= "\"s$i\":\"off\",";
-            }
-
-            $i++;
-        }
-
-        $f_encodedMessage .= "\"fan\":\"$f_fan\",";
-        $f_encodedMessage .= "\"temp\":\"$f_temperature\",";
-
-        $f_encodedMessage .= "\"keypad\":\"$f_keypad\"";
-
-        $f_encodedMessage .= "\"keypad\":\"$f_keypad\"}";
-
-
-        var_dump($f_encodedMessage);
-
-        $stripSlashed = stripslashes($f_encodedMessage);
-        var_dump($stripSlashed);
-
-        return $stripSlashed;
-    }
-
     public function create_circuitboard_message() {
         $f_switches       = $this->switches;
         $f_fan            = $this->fan;
@@ -110,5 +74,6 @@ class CircuitboardModel
 
         return $f_encodedMessage;
     }
+
 
 }

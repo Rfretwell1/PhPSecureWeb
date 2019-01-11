@@ -23,6 +23,7 @@ define('WSDL', $wsdl);
 define ('BCRYPT_ALGO', PASSWORD_DEFAULT);
 define ('BCRYPT_COST', 12);
 
+
 $settings = [
     "settings" => [
         'displayErrorDetails' => true,

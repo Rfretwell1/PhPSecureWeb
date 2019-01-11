@@ -6,7 +6,14 @@ class MySQLWrapper
   private $c_obj_sql_queries;
   private $c_obj_stmt;
   private $c_arr_errors;
-
+    /**
+     * MessageModel constructor. - the __construct method is used to pass in parameters when you
+     * first create an object - called 'defining constructor method'.
+     * __construct is always called when creating new objects or they are invoked when
+     * the initialization takes place. it is suitable for any of the initializations that
+     * the object may need before it is used.
+     * __construct method is the first method executed.
+     */
   public function __construct()
   {
     $this->c_obj_db_handle = null;
@@ -15,13 +22,26 @@ class MySQLWrapper
     $this->c_arr_errors = [];
   }
 
+    /**
+     * the destruct will be called as soon as there are no other references to a particular
+     * object, or in any order during a shutdown sequence.
+     * The destructor being called will happen even if the script execution is stopped.
+     * Calling for a function to stop the script will prevent the remaining shutdown
+     * routines from being executed.
+     */
   public function __destruct() { }
 
+    /**
+     * @param $p_obj_db_handle - selects object handler from the database.
+     */
   public function set_db_handle($p_obj_db_handle)
   {
     $this->c_obj_db_handle = $p_obj_db_handle;
   }
 
+    /**
+     * @param $p_obj_sql_queries - tells something where it can find the queries
+     */
   public function set_sql_queries($p_obj_sql_queries)
   {
     $this->c_obj_sql_queries = $p_obj_sql_queries;
@@ -37,6 +57,10 @@ class MySQLWrapper
       $this->safe_query($m_query_string, $m_arr_query_parameters);
   }*/
 
+    /**
+     * @param $p_acct_name - check if the users account name exists
+     * @return array - if found, display account name, if not, fail.
+     */
   public function check_if_user_exists($p_acct_name) {
       $m_query_string = $this->c_obj_sql_queries->check_if_user_exists();
       $m_arr_query_parameters = [
@@ -48,6 +72,15 @@ class MySQLWrapper
       return $result;
   }
 
+    /**
+     * binding parameters to the sql query , if those parameters are not there then the method wouldn't know what
+     * values to use instead of placeholders and msg_timestamp would be inserted instead of the actual timestamp
+     * @param $p_msg_timestamp - replacing :msg_timestamp in the query with the variable $p_msg_timestamp
+     * @param $p_msg_switches - replacing :msg_switch1,2,3,4 in the query with the variable $p_msg_switches,1,2,3,4
+     * @param $p_msg_fan - replacing :msg_fan in the query with the variable $p_msg_fan
+     * @param $p_msg_temp - replacing :msg_temperature in the query with the variable $p_msg_temperature
+     * @param $p_msg_keypad - replacing :msg_keypad in the query with the variable $p_msg_keypad
+     */
     public function insert_message_details($p_msg_timestamp, $p_msg_switches, $p_msg_fan, $p_msg_temp, $p_msg_keypad) {
         $m_query_string = $this->c_obj_sql_queries->insert_message_details();
         $m_arr_query_parameters = [
@@ -63,6 +96,10 @@ class MySQLWrapper
         $this->safe_query($m_query_string, $m_arr_query_parameters);
     }
 
+    /**
+     * @param $p_acct_name - replacing :acct_name in the query with the variable $p_acct_name
+     * @param $p_acct_password - replacing :acct_password in the query with the variable $p_acct_password
+     */
     public function insert_account_details($p_acct_name, $p_acct_password) {
         $m_query_string = $this->c_obj_sql_queries->insert_account_details();
         $m_arr_query_parameters = [
@@ -72,6 +109,11 @@ class MySQLWrapper
         $this->safe_query($m_query_string, $m_arr_query_parameters);
     }
 
+    /**
+     * @param $p_query_string
+     * @param null $p_arr_params
+     * @return array
+     */
     public function safe_query_2($p_query_string, $p_arr_params = null)
     {
         $this->c_arr_errors['db_error'] = false;
@@ -119,6 +161,11 @@ class MySQLWrapper
         return $result;
     }
 
+    /**
+     * @param $p_query_string -
+     * @param null $p_arr_params
+     * @return mixed
+     */
   public function safe_query($p_query_string, $p_arr_params = null)
   {
     $this->c_arr_errors['db_error'] = false;
@@ -159,18 +206,27 @@ class MySQLWrapper
     return $this->c_arr_errors['db_error'];
   }
 
+    /**
+     * @return mixed - return the numeric value of elements in the array.
+     */
   public function count_rows()
   {
     $m_num_rows = $this->c_obj_stmt->rowCount();
     return $m_num_rows;
   }
 
+    /**
+     * @return mixed - fetches the numeric array.
+     */
   public function safe_fetch_row()
   {
     $m_record_set = $this->c_obj_stmt->fetch(PDO::FETCH_NUM);
     return $m_record_set;
   }
 
+    /**
+     * @return mixed - fetch using the associative array.
+     */
   public function safe_fetch_array()
   {
     $m_arr_row = $this->c_obj_stmt->fetch(PDO::FETCH_ASSOC);
@@ -178,6 +234,9 @@ class MySQLWrapper
     return $m_arr_row;
   }
 
+    /**
+     * @return mixed - returns the last ID that was inserted.
+     */
   public function last_inserted_ID()
   {
     $m_sql_query = 'SELECT LAST_INSERT_ID()';

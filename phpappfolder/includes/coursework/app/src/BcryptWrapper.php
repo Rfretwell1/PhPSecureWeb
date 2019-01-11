@@ -8,11 +8,30 @@
 
 class BcryptWrapper
 {
-
+    /**
+     * MessageModel constructor. - the __construct method is used to pass in parameters when you
+     * first create an object - called 'defining constructor method'.
+     * __construct is always called when creating new objects or they are invoked when
+     * the initialization takes place. it is suitable for any of the initializations that
+     * the object may need before it is used.
+     * __construct method is the first method executed.
+     */
   public function __construct(){}
+
+    /**
+     * the destruct will be called as soon as there are no other references to a particular
+     * object, or in any order during a shutdown sequence.
+     * The destructor being called will happen even if the script execution is stopped.
+     * Calling for a function to stop the script will prevent the remaining shutdown
+     * routines from being executed.
+     */
 
   public function __destruct(){}
 
+    /**
+     * @param $string_to_hash function to turn string into has for encrypted password
+     * @return bool|string - if successful returns hashed password, otherwise fails.
+     */
   public function create_hashed_password($string_to_hash)
   {
     $password_to_hash = $string_to_hash;
@@ -27,7 +46,11 @@ class BcryptWrapper
   }
 
 
-
+    /**
+     * @param $string_to_check - string to check if the users password is stored and authenticated
+     * @param $stored_user_password_hash
+     * @return bool - true if authenticated, false if not.
+     */
   public function authenticate_password($string_to_check, $stored_user_password_hash)
   {
     $user_authenticated = false;

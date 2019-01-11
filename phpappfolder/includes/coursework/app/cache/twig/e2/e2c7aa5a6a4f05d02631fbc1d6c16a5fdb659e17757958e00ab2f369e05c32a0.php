@@ -19,6 +19,10 @@ class __TwigTemplate_32f849ea3bafe00df3f89b5a246010b44dc8b9343b408afd9bb569b06a9
         );
     }
 
+    /**
+     * @param array $context
+     * @return bool|string
+     */
     protected function doGetParent(array $context)
     {
         return "layout.html.twig";

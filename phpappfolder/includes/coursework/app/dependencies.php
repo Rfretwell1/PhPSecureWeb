@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * @param $container
+ * @return \Slim\Views\Twig - returns the views of the slim\views\twig files
+ */
 $container['view'] = function ($container) {
     $view = new \Slim\Views\Twig(
         $container['settings']['view']['template_path'],
@@ -9,6 +12,9 @@ $container['view'] = function ($container) {
         ]
     );
 
+    /**
+     * instantiate and add slim specific extension
+     */
     // Instantiate and add Slim specific extension
     $basePath = rtrim(str_ireplace('index.php', '', $container['request']->getUri()->getBasePath()), '/');
     $view->addExtension(new Slim\Views\TwigExtension($container['router'], $basePath));
@@ -26,12 +32,14 @@ $container['base64_wrapper'] = function ($container) {
     return $wrapper;
 };
 
+
 $container['bcrypt_wrapper'] = function ($container) {
     $class_path = $container->get('settings')['class_path'];
     require $class_path . 'BcryptWrapper.php';
     $wrapper = new BcryptWrapper();
     return $wrapper;
 };
+
 
 $container['libsodium_wrapper'] = function ($container) {
     $class_path = $container->get('settings')['class_path'];
@@ -54,12 +62,14 @@ $container['validator'] = function ($container) {
     return $validator;
 };
 
+
 $container['message_model'] = function ($container) {
     $class_path = $container->get('settings')['class_path'];
     require $class_path . 'MessageModel.php';
     $model = new MessageModel();
     return $model;
 };
+
 
 $container['circuitboard_model'] = function ($container) {
     $class_path = $container->get('settings')['class_path'];
@@ -76,12 +86,14 @@ $mysql_wrapper = new MySQLWrapper();
 return $mysql_wrapper;
 };
 
+
 $container['sql_queries'] = function ($container) {
 $class_path = $container->get('settings')['class_path'];
 require $class_path . 'SQLQueries.php';
 $sql_queries = new SQLQueries();
 return $sql_queries;
 };
+
 
 $container['dbase'] = function ($container) {
 

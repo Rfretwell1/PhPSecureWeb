@@ -11,9 +11,7 @@ $app->post(
         $soap = $message_model->createSoapClient();
         $peeked_messages = $message_model->peekMessages($soap);
         $parsed_messages = $message_model->parseMessages($peeked_messages);
-        $messages_json = $message_model->convertMessagesToJSON($parsed_messages);
-        $test = stripslashes($messages_json[5]);
-        var_dump($test);
+        $messages_json = $message_model->convertMessagesToJSON($peeked_messages);
 
         var_dump($messages_json);
 
