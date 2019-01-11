@@ -11,10 +11,10 @@
 	CREATE TABLE messages (
 		msg_id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
 		msg_timestamp varchar(128) COLLATE utf8_unicode_ci NOT NULL,
-		msg_switch1 BOOLEAN NOT NULL,
-		msg_switch2 BOOLEAN NOT NULL,
-		msg_switch3 BOOLEAN NOT NULL,
-		msg_switch4 BOOLEAN NOT NULL,
+		msg_switch1 varchar(3) NOT NULL,
+		msg_switch2 varchar(3) NOT NULL,
+		msg_switch3 varchar(3) NOT NULL,
+		msg_switch4 varchar(3) NOT NULL,
 		msg_fan varchar(3) COLLATE utf8_unicode_ci NOT NULL,
 		msg_temperature DOUBLE(8,2) NOT NULL,
 		msg_keypad INT NOT NULL
