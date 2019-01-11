@@ -1,0 +1,27 @@
+body{
+    background-color: mintcream;
+    font-family: Calibri;
+
+}
+
+.page-content-div
+{
+    text-align: left;
+    text-decoration: underline;
+}
+
+.register {
+    text-decoration: underline;
+    font-family: Verdana;
+}
+
+label{
+    text-decoration: underline;
+    font-family: Verdana;
+    font-size: larger;
+}
+
+menu {
+    text-align: end;
+    font-size: large;
+}

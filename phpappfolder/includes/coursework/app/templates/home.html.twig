@@ -2,15 +2,15 @@
 {% block title %}{{ page_title }}{% endblock %}
 {% block content %}
     <div id="page-content-div">
-        <p>Login | <a href="{{ register }}">Register</a></p>
-        <p>EE M2M Connect Message Sender/Receiver</p>
+        <menu> <p>Login | <a href="{{ register }}">Register</a></p></menu>
+        <label><p>EE M2M Connect Message Sender/Receiver</p></label>
         <form action="{{ sendmessage }}" method="post">
             <fieldset>
                 <legend>Configure a virtual circuit board & send information on its state to the EE server.</legend>
                 <br>
 
 
-                <label for="switches">Switches (on/off):</label>
+                <label for="switches">Switches (on/off):</label> <br> <br>
                 <input id="switch1" name ="switch1" type="checkbox" value="on">
                 <input id="switch2" name ="switch2" type="checkbox" value="on">
                 <input id="switch3" name ="switch3" type="checkbox" value="on">
@@ -18,16 +18,16 @@
                 <br><br>
 
 
-                <label for="fan">Fan state:</label><br>
+                <label for="fan">Fan state:</label><br><br>
                 <input id="fan" name="fan" type="radio" value="fwd" checked> Forward <br>
                 <input id="fan" name="fan" type="radio" value="rev"> Reverse
                 <br><br>
 
-                <label for="heater">Heater temperature (*C):</label>
+                <label for="heater">Heater temperature (*C):</label> <br> <br>
                 <input id="heater" name="heater" type="text" value="{{ initial_input_box_value }}" size="30" maxlength="50">
                 <br><br>
 
-                <label for="keypad">Keypad value:</label>
+                <label for="keypad">Keypad value:</label> <br> <br>
                 <input id="keypad" name="keypad" type="text" value="{{ initial_input_box_value }}" size="30" maxlength="50">
                 <br><br>
 
