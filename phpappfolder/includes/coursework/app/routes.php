@@ -20,3 +20,4 @@ require 'routes/peekmessages.php';
 require 'routes/displaypeekedmessages.php';
 require 'routes/register.php';
 require 'routes/submitregistration.php';
+require 'routes/refresh_messages.php';

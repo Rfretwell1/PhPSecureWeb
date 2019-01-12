@@ -13,8 +13,22 @@ use \Psr\Http\Message\ResponseInterface as Response;
 /**
  *
  */
-$app->get('/', function(Request $request, Response $response)
-{
+$app->get('/', function(Request $request, Response $response) {
+
+    $message_model = $this->get('message_model');
+    $wrapper_mysql = $this->get('mysql_wrapper');
+    $db_handle = $this->get('dbase');
+    $sql_queries = $this->get('sql_queries');
+
+    $message_model->set_wrapper_message_db($wrapper_mysql);
+    $message_model->set_db_handle($db_handle);
+    $message_model->set_sql_queries($sql_queries);
+    $soap = $message_model->createSoapClient();
+
+    $peeked_messages = $message_model->peekMessages($soap);
+    //var_dump($peeked_messages);
+    $message_table_data = $message_model->select_messages_table();
+
     return $this->view->render($response,
         'home.html.twig',
         [
@@ -23,7 +37,9 @@ $app->get('/', function(Request $request, Response $response)
             'storeindatabase' => 'index.php/storeindatabase',
             'sendmessage' => 'index.php/sendmessage',
             'peekmessages' => 'index.php/peekmessages',
+            'refresh_messages' =>'index.php/refresh_messages',
             'register' => 'index.php/register',
             'page_title' => 'Coursework',
+            'message_table_data' => $message_table_data,
         ]);
 })->setName('home');

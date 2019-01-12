@@ -111,7 +111,8 @@ class MySQLWrapper
 
     public function select_messages_table() {
         $m_query_string = $this->c_obj_sql_queries->select_messages_table();
-        $this->safe_query_2($m_query_string);
+        $msgs_table_data = $this->safe_query_2($m_query_string);
+        return $msgs_table_data;
     }
 
     /**

@@ -1,46 +1,72 @@
-{% extends 'layout.html.twig' %}
+{% extends 'banner.html.twig' %}
 {% block title %}{{ page_title }}{% endblock %}
 {% block content %}
     <div id="page-content-div">
-        <menu> <p>Login | <a href="{{ register }}">Register</a></p></menu>
-        <label><p>EE M2M Connect Message Sender/Receiver</p></label>
-        <form action="{{ sendmessage }}" method="post">
-            <fieldset>
-                <legend>Configure a virtual circuit board & send information on its state to the EE server.</legend>
-                <br>
+        <div id="messages-table-div">
+            <h2>Downloaded Messages</h2>
+            <p>The table below lists the contents of all messages that are available on the database. Click 'update' to retrieve new messages.</p>
+            <form action="{{ refresh_messages }}" method="post">
+                <input type="submit" value="Update table">
+            </form>
+            <table id="messages-table-element">
+                <tr>
+                    <th>Timestamp</th>
+                    <th>Switches</th>
+                    <th>Fan state</th>
+                    <th>Temperature (C)</th>
+                    <th>Keypad value</th>
+                </tr>
+                {% for message in message_table_data %}
+                    <tr>
+                        <td>{{ message.msg_timestamp }}</td>
+                        <td>{{ message.msg_switch1 }}, {{ message.msg_switch2 }}, {{ message.msg_switch3 }}, {{ message.msg_switch4 }}</td>
+                        <td>{{ message.msg_fan }}</td>
+                        <td>{{ message.msg_temperature }}</td>
+                        <td>{{ message.msg_keypad }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div id="send-message-div">
+            <h2>Send Message</h2>
+            <p>The form below allows you to configure a virtual circuit board, and send information on its state to the EE server.</p>
+            <form action="{{ sendmessage }}" method="post">
+                <fieldset>
+                    <br>
 
 
-                <label for="switches">Switches (on/off):</label> <br> <br>
-                <input id="switch1" name ="switch1" type="checkbox" value="on">
-                <input id="switch2" name ="switch2" type="checkbox" value="on">
-                <input id="switch3" name ="switch3" type="checkbox" value="on">
-                <input id="switch4" name ="switch4" type="checkbox" value="on">
-                <br><br>
+                    <label for="switches">Switches (on/off):</label> <br> <br>
+                    <input id="switch1" name ="switch1" type="checkbox" value="on">
+                    <input id="switch2" name ="switch2" type="checkbox" value="on">
+                    <input id="switch3" name ="switch3" type="checkbox" value="on">
+                    <input id="switch4" name ="switch4" type="checkbox" value="on">
+                    <br><br>
 
 
-                <label for="fan">Fan state:</label><br><br>
-                <input id="fan" name="fan" type="radio" value="fwd" checked> Forward <br>
-                <input id="fan" name="fan" type="radio" value="rev"> Reverse
-                <br><br>
+                    <label for="fan">Fan state:</label><br><br>
+                    <input id="fan" name="fan" type="radio" value="fwd" checked> Forward <br>
+                    <input id="fan" name="fan" type="radio" value="rev"> Reverse
+                    <br><br>
 
-                <label for="heater">Heater temperature (*C):</label> <br> <br>
-                <input id="heater" name="heater" type="text" value="{{ initial_input_box_value }}" size="30" maxlength="50">
-                <br><br>
+                    <label for="heater">Heater temperature (*C):</label> <br> <br>
+                    <input id="heater" name="heater" type="text" value="{{ initial_input_box_value }}" size="30" maxlength="50">
+                    <br><br>
 
-                <label for="keypad">Keypad value:</label> <br> <br>
-                <input id="keypad" name="keypad" type="text" value="{{ initial_input_box_value }}" size="30" maxlength="50">
-                <br><br>
+                    <label for="keypad">Keypad value:</label> <br> <br>
+                    <input id="keypad" name="keypad" type="text" value="{{ initial_input_box_value }}" size="30" maxlength="50">
+                    <br><br>
 
-                <input type="submit" value="Send message >>>"><br>
-                <p>{{ sentmessage }}</p>
-            </fieldset>
-        </form>
+                    <input type="submit" value="Send message >>>"><br>
+                    <p>{{ sentmessage }}</p>
+                </fieldset>
+            </form>
+        </div>
 
-        <form action="{{ peekmessages }}" method="post">
+        <!--<form action="{{ peekmessages }}" method="post">
             <fieldset>
                 <legend>Peek the messages</legend>
                 <input type="submit" value="Peek >>>">
             </fieldset>
-        </form>
+        </form>-->
     </div>
 {% endblock %}

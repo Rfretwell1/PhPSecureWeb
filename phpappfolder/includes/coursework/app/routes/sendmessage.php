@@ -37,6 +37,8 @@ $app->post(
         $store_result = $message_model->get_storage_result();
         var_dump($store_result);
 
+        $message_table_data = $message_model->select_messages_table();
+
 
         /*return $this->view->render($response,
             'display_sent_message.html.twig',
@@ -56,10 +58,12 @@ $app->post(
             [
                 'css_path' => CSS_PATH,
                 'landing_page' => $_SERVER["SCRIPT_NAME"],
-                'storeindatabase' => 'storeindatabase',
+                'storeindatabase' => 'index.php/storeindatabase',
                 'sendmessage' => 'sendmessage',
-                'peekmessages' => 'peekmessages',
+                'peekmessages' => 'index.php/peekmessages',
+                'register' => 'index.php/register',
                 'page_title' => 'Coursework',
+                'message_table_data' => $message_table_data,
                 'sentmessage' => 'Message successfully sent.'
             ]);
 
