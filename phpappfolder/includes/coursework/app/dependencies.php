@@ -46,6 +46,13 @@ $container['account_model'] = function ($container) {
     return $wrapper;
 };
 
+$container['messages_model'] = function ($container) {
+    $class_path = $container->get('settings')['class_path'];
+    require $class_path . 'MessagesModel.php';
+    $wrapper = new MessagesModel();
+    return $wrapper;
+};
+
 $container['bcrypt_wrapper'] = function ($container) {
     $class_path = $container->get('settings')['class_path'];
     require $class_path . 'BcryptWrapper.php';
@@ -74,15 +81,6 @@ $container['validator'] = function ($container) {
     $validator = new Validator();
     return $validator;
 };
-
-
-$container['message_model'] = function ($container) {
-    $class_path = $container->get('settings')['class_path'];
-    require $class_path . 'MessageModel.php';
-    $model = new MessageModel();
-    return $model;
-};
-
 
 $container['circuitboard_model'] = function ($container) {
     $class_path = $container->get('settings')['class_path'];

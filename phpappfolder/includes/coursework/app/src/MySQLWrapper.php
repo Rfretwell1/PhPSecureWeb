@@ -34,7 +34,7 @@ class MySQLWrapper
     /**
      * @param $p_obj_db_handle - selects object handler from the database.
      */
-  public function set_db_handle($p_obj_db_handle)
+  public function set_database_handle($p_obj_db_handle)
   {
     $this->c_obj_db_handle = $p_obj_db_handle;
   }
@@ -46,16 +46,6 @@ class MySQLWrapper
   {
     $this->c_obj_sql_queries = $p_obj_sql_queries;
   }
-
-  //OLD
-  /*public function insert_message_details($p_message_content, $p_message_metadata) {
-      $m_query_string = $this->c_obj_sql_queries->insert_message_details();
-      $m_arr_query_parameters = [
-          ':message_content' => $p_message_content,
-          ':message_metadata' => $p_message_metadata,
-      ];
-      $this->safe_query($m_query_string, $m_arr_query_parameters);
-  }*/
 
     /**
      * @param $p_acct_name - check if the users account name exists

@@ -10,36 +10,50 @@ use \Psr\Http\Message\ResponseInterface as Response;
  * able to register.
  */
 
-/**
- *
- */
 $app->get('/', function(Request $request, Response $response) {
+    $messages_model     = $this->get('messages_model');
+    $soap_wrapper       = $this->get('soap_wrapper');
+    $database_handle    = $this->get('dbase');
+    $mysql_wrapper      = $this->get('mysql_wrapper');
+    $sql_queries        = $this->get('sql_queries');
 
-    $message_model = $this->get('message_model');
-    $wrapper_mysql = $this->get('mysql_wrapper');
-    $db_handle = $this->get('dbase');
-    $sql_queries = $this->get('sql_queries');
+    $messages_model->set_database_handle($database_handle);
+    $messages_model->set_sql_wrapper($mysql_wrapper);
+    $messages_model->set_sql_queries($sql_queries);
+    $soap_wrapper  ->init_soap_client();
 
-    $message_model->set_wrapper_message_db($wrapper_mysql);
-    $message_model->set_db_handle($db_handle);
-    $message_model->set_sql_queries($sql_queries);
-    $soap = $message_model->createSoapClient();
+    $peeked_messages    = $soap_wrapper->peek_messages();
+    //TODO - Uncomment this on uni PCs - libxml doesn't work on VM
+    /*$parsed_messages    = $messages_model->parse_messages($peeked_messages);
+    $filtered_messages  = $messages_model->filter_messages($parsed_messages);
 
-    $peeked_messages = $message_model->peekMessages($soap);
-    //var_dump($peeked_messages);
-    $message_table_data = $message_model->select_messages_table();
+    foreach($filtered_messages as $message) {
+        $messages_model->store_message_data($message);
+    }*/
+
+    $message_table_data = $messages_model->select_messages_table();
 
     return $this->view->render($response,
         'home.html.twig',
         [
             'css_path' => CSS_PATH,
             'landing_page' => $_SERVER["SCRIPT_NAME"],
-            'storeindatabase' => 'index.php/storeindatabase',
             'sendmessage' => 'index.php/sendmessage',
-            'peekmessages' => 'index.php/peekmessages',
             'refresh_messages' =>'index.php/refresh_messages',
             'register' => 'index.php/register',
             'page_title' => 'Coursework',
             'message_table_data' => $message_table_data,
         ]);
 })->setName('home');
+
+
+/*$message_model = $this->get('message_model');
+$wrapper_mysql = $this->get('mysql_wrapper');
+$db_handle = $this->get('dbase');
+$sql_queries = $this->get('sql_queries');
+
+
+$message_model->set_wrapper_message_db($wrapper_mysql);
+$message_model->set_db_handle($db_handle);
+$message_model->set_sql_queries($sql_queries);
+//$soap = $message_model->createSoapClient();*/

@@ -12,6 +12,6 @@ $app->get('/register', function(Request $request, Response $response)
             'landing_page' => $_SERVER["SCRIPT_NAME"],
             'registrationsubmit' => 'registrationsubmit',
             'page_title' => 'Register',
-
+            'home' => '/coursework',
         ]);
-})->setName('home');
+});
