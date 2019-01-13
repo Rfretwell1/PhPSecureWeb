@@ -7,15 +7,11 @@ $app->post(
     '/sendmessage',
     function(Request $request, Response $response) use ($app)
     {
-        $mysql_wrapper = $this->get('mysql_wrapper');
-        $database_handle = $this->get('dbase');
-        $sql_queries = $this->get('sql_queries');
+        $mysql_wrapper      = $this->get('mysql_wrapper');
+        $database_handle    = $this->get('dbase');
+        $sql_queries        = $this->get('sql_queries');
+        $messages_model     = $this->get('messages_model');
 
-       /* $message_model = $this->get('message_model');
-        $message_model->set_wrapper_message_db($wrapper_mysql);
-        $message_model->set_database_handle($db_handle);
-        $message_model->set_sql_queries($sql_queries);*/
-        $messages_model = $this->get('messages_model');
         $messages_model->set_database_handle($database_handle);
         $messages_model->set_sql_wrapper($mysql_wrapper);
         $messages_model->set_sql_queries($sql_queries);

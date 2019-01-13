@@ -70,7 +70,7 @@ class AccountModel
 
     public function store_account_data($p_acct_name, $p_acct_password) {
 
-        $this->sql_wrapper->set_db_handle( $this->database_handle);
+        $this->sql_wrapper->set_database_handle( $this->database_handle);
         $this->sql_wrapper->set_sql_queries( $this->sql_queries);
 
         $store_result = $this->sql_wrapper->insert_account_details($p_acct_name, $p_acct_password);
@@ -81,7 +81,7 @@ class AccountModel
     public function check_if_user_exists($p_acct_name) {
         $m_store_result = false;
 
-        $this->sql_wrapper->set_db_handle( $this->database_handle);
+        $this->sql_wrapper->set_database_handle( $this->database_handle);
         $this->sql_wrapper->set_sql_queries( $this->sql_queries);
 
         $m_store_result = $this->sql_wrapper->check_if_user_exists($p_acct_name);
