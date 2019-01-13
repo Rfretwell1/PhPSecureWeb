@@ -36,6 +36,58 @@ class Validator
         return $sanitised_string;
     }
 
+    public function validate_fan($tainted_fan) {
+        $validated_fan = false;
+
+        if($tainted_fan === 'fwd' || $tainted_fan === 'rev') {
+            $validated_fan = $tainted_fan;
+        }
+
+        return $validated_fan;
+    }
+
+    /**Validates the temperature input, ensuring that it is a number between -9999 and 9999
+     * @param $tainted_temperature - the temperature value to validate
+     * @return string - the validated temperature, OR false if it is invalid
+     */
+    public function validate_temperature($tainted_temperature) {
+
+        if(is_numeric($tainted_temperature)) {
+            if($tainted_temperature < 9999 || $tainted_temperature > -9999) {
+                $validated_temperature = $tainted_temperature;
+            }
+            else {
+                $validated_temperature = false;
+            }
+        }
+        else {
+            $validated_temperature = false;
+        }
+
+        return $validated_temperature;
+    }
+
+    /**Validates the keypad value input, ensuring that it is a 4 digit number
+     * @param $tainted_keypad - the keypad value to validate
+     * @return int|string - the validated keypad value, OR a reason as for why the keypad value is invalid
+     */
+    public function validate_keypad($tainted_keypad) {
+
+        if(is_numeric($tainted_keypad)) {
+            if(strlen($tainted_keypad) === 4) {
+                $validated_keypad = $tainted_keypad;
+            }
+            else {
+                $validated_keypad = false;
+            }
+        }
+        else {
+            $validated_keypad = false;
+        }
+
+        return $validated_keypad;
+    }
+
     /**
      * @param $email_to_sanitise - removes all characters except letters, digits and !"£$%^&*()-_+={}[]@'.
      * @return bool|mixed returns either true or false depending on the characters entered

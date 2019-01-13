@@ -32,6 +32,12 @@ $container['base64_wrapper'] = function ($container) {
     return $wrapper;
 };
 
+$container['soap_wrapper'] = function ($container) {
+    $class_path = $container->get('settings')['class_path'];
+    require $class_path . 'SoapWrapper.php';
+    $wrapper = new SoapWrapper();
+    return $wrapper;
+};
 
 $container['bcrypt_wrapper'] = function ($container) {
     $class_path = $container->get('settings')['class_path'];
