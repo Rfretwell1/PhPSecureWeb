@@ -17,8 +17,6 @@ $app->post(
         $message_model->set_sql_queries($sql_queries);
         $message_table_data = $message_model->select_messages_table();
 
-
-
         $tainted_params = $request->getParsedBody();
 
         $switch_array_keys = ['switch1', 'switch2', 'switch3', 'switch4'];

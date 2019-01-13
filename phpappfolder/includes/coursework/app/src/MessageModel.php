@@ -78,12 +78,12 @@ class MessageModel
         $this->c_obj_sql_queries = $p_obj_sql_queries;
     }
 
-    /**
+    /** O L D
      * SoapClient - creates a soap client to talk to the EE server. allows the user to communicate with the EE server
      * enables the receiving and sending of messages with the EE server
      * and get messages back from server.
      */
-    public function createSoapClient()
+    /*public function createSoapClient()
     {
         $obj_soap_client_handle = false;
         $wsdl = WSDL;
@@ -101,7 +101,7 @@ class MessageModel
         }
 
         return $obj_soap_client_handle;
-    }
+    }*?
 
     /*
     //Old function to send an inputted message to any number
@@ -115,53 +115,13 @@ class MessageModel
         return $soapClient->__getLastRequest();
     }*/
 
-    /** Takes the state of the circuit board and encodes it as an XML string, to be later sent to the EE server. */
-    // MOVED TO CircuitboardModel - keeping this just in case (for now)
-    /*public function encodeMessage($circuitBoard) {
-        $switches       = $circuitBoard['switches'];
-        $fan            = $circuitBoard['fan'];
-        $temperature    = $circuitBoard['temperature'];
-        $keypad         = $circuitBoard['keypad'];
-        $encodedMessage = '{"id":"18-3110-AJ",';
-
-        $i = -1;
-        foreach($switches as $switch) {
-            $i++;
-            if($switch == true) {
-                $encodedMessage .= "\"s$i\":\"on\",";
-            }
-            else {
-                $encodedMessage .= "\"s$i\":\"off\",";
-            }
-        }
-
-        if($fan == true) {
-            $encodedMessage .= "\"fan\":\"on\",";
-        }
-        else {
-            $encodedMessage .= "\"fan\":\"off\",";
-        }
-
-        $encodedMessage .= "\"temp\":\"$temperature\",";
-        $encodedMessage .= "\"keypad\":\"$keypad\"}";
-
-
-
-
-        var_dump($encodedMessage);
-
-        $stripSlashed = stripslashes($encodedMessage);
-        var_dump($stripSlashed);
-
-        return $stripSlashed;
-    }*/
     /**
      * @param $soapClient -soap client of the sending message function allows data to be sent
      * @param $encodedMessage -
      * @return mixed the return tells you the last thing to be requested from the soap client, which was to send the
      * message
      */
-    public function sendMessage($soapClient, $encodedMessage) {
+    /*public function sendMessage($soapClient, $encodedMessage) {
         try {
             $soapClient->sendMessage('18JoshDavis', 'Greggs123', '+447817814149', $encodedMessage, false, 'SMS');
         }
@@ -169,7 +129,7 @@ class MessageModel
             trigger_error($obj_exception);
         }
         return $soapClient->__getLastRequest();
-    }
+    }*/
 
 
     /**
@@ -177,7 +137,7 @@ class MessageModel
      *
      * @return mixed - returns mixed variables - string, integer from the server.
      */
-    public function peekMessages($soapClient)
+    /*public function peekMessages($soapClient)
     {
         try {
             $messagesArray = $soapClient->peekMessages('18JoshDavis', 'Greggs123', 100, '+447817814149');
@@ -185,7 +145,7 @@ class MessageModel
             trigger_error($obj_exception);
         }
         return $messagesArray;
-    }
+    }*/
 
     //TODO - VALIDATE XML (in MessageValidator.php)
 
@@ -263,26 +223,7 @@ class MessageModel
         return $this->c_arr_storage_result;
     }
 
-    /**
-     * When registering, users selected username will be checked to see if it is already taken.
-     * if the username is taken it will alert the user that that user name is already taken.
-     * if the username is not already in use it will allow the user to create an account with that selected username.
-     */
-    public function check_if_user_exists($p_acct_name) {
-        $m_store_result = false;
 
-        $this->c_obj_wrapper_message_db->set_db_handle( $this->c_obj_db_handle);
-        $this->c_obj_wrapper_message_db->set_sql_queries( $this->c_obj_sql_queries);
-
-        $m_store_result = $this->c_obj_wrapper_message_db->check_if_user_exists($p_acct_name);
-        var_dump($m_store_result);
-
-        if(sizeof($m_store_result) != 0) {
-            $result = true;
-        }
-        else $result = false;
-        return $result;
-    }
 
     public function select_messages_table() {
         $m_store_result = false;
@@ -345,3 +286,24 @@ class MessageModel
         return $m_store_result;
     }
 }
+
+/**
+ * When registering, users selected username will be checked to see if it is already taken.
+ * if the username is taken it will alert the user that that user name is already taken.
+ * if the username is not already in use it will allow the user to create an account with that selected username.
+ */
+/*public function check_if_user_exists($p_acct_name) {
+    $m_store_result = false;
+
+    $this->c_obj_wrapper_message_db->set_db_handle( $this->c_obj_db_handle);
+    $this->c_obj_wrapper_message_db->set_sql_queries( $this->c_obj_sql_queries);
+
+    $m_store_result = $this->c_obj_wrapper_message_db->check_if_user_exists($p_acct_name);
+    var_dump($m_store_result);
+
+    if(sizeof($m_store_result) != 0) {
+        $result = true;
+    }
+    else $result = false;
+    return $result;
+}*/
