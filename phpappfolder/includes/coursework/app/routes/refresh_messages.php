@@ -36,6 +36,7 @@ $app->post(
                 'landing_page' => $_SERVER["SCRIPT_NAME"],
                 'sendmessage' => 'sendmessage',
                 'refresh_messages' =>'refresh_messages',
+                'login' => 'login',
                 'register' => 'register',
                 'page_title' => 'Coursework',
                 'message_table_data' => $message_table_data,

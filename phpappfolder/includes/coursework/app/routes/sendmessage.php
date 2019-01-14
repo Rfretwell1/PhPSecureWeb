@@ -7,11 +7,14 @@ $app->post(
     '/sendmessage',
     function(Request $request, Response $response) use ($app)
     {
+        //Loading the required files
         $mysql_wrapper      = $this->get('mysql_wrapper');
         $database_handle    = $this->get('dbase');
         $sql_queries        = $this->get('sql_queries');
         $messages_model     = $this->get('messages_model');
+        $validator          = $this->get('validator');
 
+        //Loads the messages from the database & stores them in an array
         $messages_model->set_database_handle($database_handle);
         $messages_model->set_sql_wrapper($mysql_wrapper);
         $messages_model->set_sql_queries($sql_queries);
@@ -19,6 +22,7 @@ $app->post(
 
         $tainted_params = $request->getParsedBody();
 
+        //Gets the values (or lack thereof) of the switch check boxes, and adds them to an array
         $switch_array_keys = ['switch1', 'switch2', 'switch3', 'switch4'];
         $switches = [];
         foreach($switch_array_keys as $key) {
@@ -30,39 +34,45 @@ $app->post(
             }
         }
 
-        $tainted_fan     =  $tainted_params['fan'];
-        $tainted_temp    =  $tainted_params['heater'];
-        $tainted_keypad  =  $tainted_params['keypad'];
+        //Gets the tainted values for the fan, temperature, and keypad
+        $tainted_fan        =  $tainted_params['fan'];
+        $tainted_temp       =  $tainted_params['heater'];
+        $tainted_keypad     =  $tainted_params['keypad'];
 
-        $validator          = $this->get('validator');
+        //Validates the tainted params
         $validated_fan      = $validator->validate_fan($tainted_fan);
         $validated_temp     = $validator->validate_temperature($tainted_temp);
         $validated_keypad   = $validator->validate_keypad($tainted_keypad);
 
+        //Checking for any errors with the input & building a string to tell the user what they have done wrong
         $error_message = '';
         if($validated_fan === false) {
-            $error_message .= "Value for field 'fan' is invalid. Value should be 'fwd' OR 'rev'\r\n";
+            $error_message .= "Value for field 'fan' is invalid. Value should be 'fwd' OR 'rev'";
         }
 
         if($validated_temp === false) {
-            $error_message .= "Value for field 'temperature' is invalid. Value should be a number between -9999 and 9999\r\n";
+            $error_message .= "Value for field 'temperature' is invalid. Value should be a number between -9999 and 9999";
         }
 
         if($validated_keypad === false) {
-            $error_message .= "Value for field 'keypad value' is invalid. Value should be a 4 digit number\r\n";
+            $error_message .= "Value for field 'keypad value' is invalid. Value should be a 4 digit number";
         }
 
         if(strlen($error_message) === 0) {
+            //If no error message, creates a CircuitboardModel & sets it state to that of the user entered values
             $circuitboard_model = $this->get('circuitboard_model');
             $circuitboard_model->set_circuitboard_state($switches, $validated_fan, $validated_temp, $validated_keypad);
+            //Creates a JSON string of the circuitboard state, ready to be sent to the M2M server
             $message_to_send = $circuitboard_model->create_circuitboard_message();
 
+            //Gets the SoapWrapper, initiates a client and then sends the message
             $soap_wrapper = $this->get('soap_wrapper');
             $soap_wrapper->init_soap_client();
             $soap_wrapper->send_message($message_to_send);
             $submit_message = 'Message successfully sent.';
         }
         else {
+            //Shows the user the error message
             $submit_message = $error_message;
         }
 
@@ -72,47 +82,12 @@ $app->post(
                 'css_path' => CSS_PATH,
                 'landing_page' => $_SERVER["SCRIPT_NAME"],
                 'sendmessage' => 'sendmessage',
-                'peekmessages' => 'peekmessages',
+                'refresh_messages' =>'refresh_messages',
                 'register' => 'register',
                 'page_title' => 'Home',
                 'message_table_data' => $message_table_data,
                 'submit_message' => $submit_message,
-            ]);
-    });
-
-/*$circuitboard_model = $this->get('circuitboard_model');
-$circuitboard_model->set_circuitboard_state($switches, $validated_fan, $validated_temp, $validated_keypad);
-$encodedMessage = $circuitboard_model->create_circuitboard_message();
-
-$message_model = $this->get('message_model');
-$soap = $message_model->createSoapClient();
-$message_model->sendMessage($soap, $encodedMessage);
-
-$wrapper_mysql = $this->get('mysql_wrapper');
-$db_handle = $this->get('dbase');
-$sql_queries = $this->get('sql_queries');
-
-$message_model->set_wrapper_message_db($wrapper_mysql);
-$message_model->set_db_handle($db_handle);
-$message_model->set_sql_queries($sql_queries);
-//$message_model->store_data();
-//var_dump(date(DATE_W3C));
-$message_model->store_message_data(date(), $switches, $fan, $tainted_heater, $tainted_keypad);
-$store_result = $message_model->get_storage_result();
-var_dump($store_result);
-
-$message_table_data = $message_model->select_messages_table();*/
-
-
-/*return $this->view->render($response,
-    'display_sent_message.html.twig',
-    [
-        'landing_page' => $_SERVER["SCRIPT_NAME"],
-        'action' => 'index.php/displaysentmessage',
-        'css_path' => CSS_PATH,
-        'storage_text' => 'You sent a message: ',
-        'switches' => $switches,
-        'fan' => $fan,
-        'heater' => $tainted_heater,
-        'keypad' => $tainted_keypad,
-    ]);*/
+            ]
+        );
+    }
+);

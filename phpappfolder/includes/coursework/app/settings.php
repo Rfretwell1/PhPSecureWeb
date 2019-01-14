@@ -9,6 +9,7 @@
 ini_set('display_errors', 'On');
 ini_set('html_errors', 'On');
 ini_set('xdebug.trace_output_name', 'coursework.%t');
+//ini_set('xdebug.default_enable', 0);
 
 define('DIRSEP', DIRECTORY_SEPARATOR);
 

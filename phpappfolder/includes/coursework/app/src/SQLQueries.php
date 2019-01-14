@@ -43,14 +43,6 @@ class SQLQueries
         return $m_query_string;
     }
 
-    /*public static function check_if_user_exists() {
-        $m_query_string =  "SELECT acct_id, IF(acct_name =\":acct_name\", \"true\", \"false\") as does_user_exist
-                            FROM accounts
-                            ";
-
-        return $m_query_string;
-    }*/
-
     public static function select_messages_table() {
         $m_query_string = "SELECT * FROM messages";
 
@@ -60,7 +52,7 @@ class SQLQueries
     /**
      * @return string - returns a string whether or not the user exists from accounts where acct_name is stored
      */
-    public static function check_if_user_exists() {
+    public static function select_account_data() {
         $m_query_string =  "SELECT * FROM accounts WHERE acct_name = :acct_name";
 
         return $m_query_string;

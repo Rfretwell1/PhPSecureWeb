@@ -3,11 +3,9 @@
 {% block content %}
     <div id="page-content-div">
         <div id="messages-table-div">
+            {{ registration_message }}
             <h2>Downloaded Messages</h2>
             <p>The table below lists the contents of all messages that are available on the database. Click 'update' to retrieve new messages.</p>
-            <form action="{{ refresh_messages }}" method="post">
-                <input type="submit" value="Update table">
-            </form>
             <table id="messages-table-element">
                 <tr>
                     <th>Timestamp</th>
@@ -26,6 +24,10 @@
                     </tr>
                 {% endfor %}
             </table>
+            <br>
+            <form action="{{ refresh_messages }}" method="post">
+                <input type="submit" value="Update table">
+            </form>
         </div>
         <div id="send-message-div">
             <h2>Send Message</h2>
@@ -44,8 +46,8 @@
 
 
                     <label for="fan">Fan state:</label><br><br>
-                    <input id="fan" name="fan" type="radio" value="fwd" checked> Forward <br>
-                    <input id="fan" name="fan" type="radio" value="rev"> Reverse
+                    <input id="fan-fwd" name="fan" type="radio" value="fwd" checked> Forward <br>
+                    <input id="fan-rev" name="fan" type="radio" value="rev"> Reverse
                     <br><br>
 
                     <label for="heater">Heater temperature (*C):</label> <br> <br>

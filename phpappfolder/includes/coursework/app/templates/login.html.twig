@@ -1,13 +1,14 @@
-{% extends 'layout.html.twig' %}
+{% extends 'banner.html.twig' %}
 {% block title %}{{ page_title }}{% endblock %}
 {% block content %}
     <div id="page-content-div">
-        <p>Login</p>
-        <form action="{{ loginsubmit }}" method="post">
+        <h2>Login</h2>
+        <p></p>
+        <form action="{{ login_submit }}" method="post">
             <fieldset>
                 <legend>Login</legend>
                 <br>
-                <div id="register">
+                <div id="login-form-div">
                     <label for="username">Username:</label>
                     <input id="username" name="username" type="text" value="{{ initial_input_box_value }}" size="30" maxlength="50">
                     <br><br>
@@ -15,10 +16,10 @@
                     <label for="password">Password:</label>
                     <input id="password" name="password" type="password" value="{{ initial_input_box_value }}" size="30" maxlength="50">
                     <br>
-
+                    <p>{{ login_message }}</p>
                 </div>
 
-                <input type="submit" value="Login >>>"><br>
+                <input type="submit" value="Login"><br>
             </fieldset>
 
         </form>

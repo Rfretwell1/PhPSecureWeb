@@ -52,8 +52,8 @@ class MySQLWrapper
      * @param $p_acct_name - check if the users account name exists
      * @return array - if found, display account name, if not, fail.
      */
-  public function check_if_user_exists($p_acct_name) {
-      $m_query_string = $this->sql_queries->check_if_user_exists();
+  public function select_account_data($p_acct_name) {
+      $m_query_string = $this->sql_queries->select_account_data();
       $m_arr_query_parameters = [
           ':acct_name' => $p_acct_name,
       ];
@@ -124,7 +124,8 @@ class MySQLWrapper
       $this->sql_statement = $this->database_handle->prepare($m_query_string);
 
       // bind the parameters
-      if (sizeof($m_arr_query_parameters) > 0)
+      //if (sizeof($m_arr_query_parameters) > 0)
+        if(!empty($m_arr_query_parameters))
       {
         foreach ($m_arr_query_parameters as $m_param_key => $m_param_value)
         {
@@ -143,7 +144,6 @@ class MySQLWrapper
       $error_message  = 'PDO Exception caught. ';
       $error_message .= 'Error with the database access.' . "\n";
       $error_message .= 'SQL query: ' . $m_query_string . "\n";
-      $error_message .= 'Error: ' . var_dump($this->sql_statement->errorInfo(), true) . "\n";
 
       // NB would usually output to file for sysadmin attention
       $this->errors_array['db_error'] = true;

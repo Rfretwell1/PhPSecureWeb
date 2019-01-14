@@ -11,17 +11,22 @@ use \Psr\Http\Message\ResponseInterface as Response;
  */
 
 $app->get('/', function(Request $request, Response $response) {
+    //Loading the required files
     $messages_model     = $this->get('messages_model');
     $soap_wrapper       = $this->get('soap_wrapper');
     $database_handle    = $this->get('dbase');
     $mysql_wrapper      = $this->get('mysql_wrapper');
     $sql_queries        = $this->get('sql_queries');
 
+    //Setting the database files information for the messages model
     $messages_model->set_database_handle($database_handle);
     $messages_model->set_sql_wrapper($mysql_wrapper);
     $messages_model->set_sql_queries($sql_queries);
+
+    //Initialising the soap client
     $soap_wrapper  ->init_soap_client();
 
+    //Peeking the messages from the M2M server, parsing them, converting them to XML, then filtering out the other groups. The filtered messages are then added to the database.
     $peeked_messages    = $soap_wrapper->peek_messages();
     //TODO - Uncomment this on uni PCs - libxml doesn't work on VM
     /*$parsed_messages    = $messages_model->parse_messages($peeked_messages);
@@ -40,6 +45,7 @@ $app->get('/', function(Request $request, Response $response) {
             'landing_page' => $_SERVER["SCRIPT_NAME"],
             'sendmessage' => 'index.php/sendmessage',
             'refresh_messages' =>'index.php/refresh_messages',
+            'login' => 'index.php/login',
             'register' => 'index.php/register',
             'page_title' => 'Coursework',
             'message_table_data' => $message_table_data,

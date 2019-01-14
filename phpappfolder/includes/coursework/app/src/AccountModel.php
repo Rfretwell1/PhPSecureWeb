@@ -12,6 +12,7 @@ class AccountModel
     private $database_handle;
     private $sql_wrapper;
     private $sql_queries;
+    private $session_wrapper;
 
     /**
      * MessageModel constructor. - the __construct method is used to pass in parameters when you
@@ -27,6 +28,7 @@ class AccountModel
         $this->database_handle = null;
         $this->sql_wrapper = null;
         $this->sql_queries = null;
+        $this->session_wrapper = null;
     }
 
     /**
@@ -68,6 +70,23 @@ class AccountModel
         $this->sql_queries = $sql_queries;
     }
 
+    public function set_session_wrapper($session_wrapper)
+    {
+        $this->session_wrapper = $session_wrapper;
+    }
+
+    public function store_data_in_session_file($username, $password)
+    {
+        $m_store_result = false;
+        $m_store_result_username = $this->session_wrapper->set_session('user_name', $username);
+        $m_store_result_password = $this->session_wrapper->set_session('password', $password);
+
+        if ($m_store_result_username !== false && $m_store_result_password !== false)	{
+            $m_store_result = true;
+        }
+        return $m_store_result;
+    }
+
     public function store_account_data($p_acct_name, $p_acct_password) {
 
         $this->sql_wrapper->set_database_handle( $this->database_handle);
@@ -84,7 +103,7 @@ class AccountModel
         $this->sql_wrapper->set_database_handle( $this->database_handle);
         $this->sql_wrapper->set_sql_queries( $this->sql_queries);
 
-        $m_store_result = $this->sql_wrapper->check_if_user_exists($p_acct_name);
+        $m_store_result = $this->sql_wrapper->select_account_data($p_acct_name);
         //var_dump($m_store_result);
 
         if(sizeof($m_store_result) != 0) {
@@ -95,4 +114,16 @@ class AccountModel
         return $result;
     }
 
+    public function get_account_data($username) {
+        $this->sql_wrapper->set_database_handle( $this->database_handle);
+        $this->sql_wrapper->set_sql_queries( $this->sql_queries);
+
+        $account_data = $this->sql_wrapper->select_account_data($username);
+
+        if(sizeof($account_data) != 1) {
+            $account_data = false;
+        }
+
+        return $account_data;
+    }
 }

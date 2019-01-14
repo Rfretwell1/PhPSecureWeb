@@ -16,6 +16,13 @@ $app->post(
         $mysql_wrapper      = $this->get('mysql_wrapper');
         $sql_queries        = $this->get('sql_queries');
         $account_model      = $this->get('account_model');
+        $messages_model     = $this->get('messages_model');
+
+        $messages_model->set_database_handle($database_handle);
+        $messages_model->set_sql_wrapper($mysql_wrapper);
+        $messages_model->set_sql_queries($sql_queries);
+
+        $message_table_data = $messages_model->select_messages_table();
 
         $arr_tainted_params = $request->getParsedBody();
         $tainted_username   = $arr_tainted_params['username'];
@@ -23,6 +30,7 @@ $app->post(
 
         $cleaned_username   = $validator->sanitise_string($tainted_username);
         $cleaned_password   = $validator->sanitise_string($tainted_password);
+        $validated_username = $validator->validate_username($cleaned_username);
         $hashed_password    = $bcrypt_wrapper->create_hashed_password($cleaned_password);
 
         $account_model->set_database_handle($database_handle);
@@ -31,15 +39,29 @@ $app->post(
 
         $does_user_exist = $account_model->check_if_user_exists($cleaned_username);
 
-        if(!$does_user_exist) {
+        $error_message = '';
+        if($does_user_exist) {
+            $error_message .= 'A user with that name already exists.';
+        }
+        if($validated_username === false) {
+            $error_message .= 'Username is invalid - field is either empty, or username is over 10 characters long.';
+        }
+
+        if(strlen($error_message) === 0) {
             $account_model->store_account_data($cleaned_username, $hashed_password);
+            $registration_message = "You have created an account with the name '$validated_username'";
+
             return $this->view->render($response,
-                'display_registration_result.html.twig',
+                'home.html.twig',
                 [
-                    'landing_page' => $_SERVER["SCRIPT_NAME"],
-                    'username' => $cleaned_username,
-                    'password' => $hashed_password,
                     'css_path' => CSS_PATH,
+                    'landing_page' => $_SERVER["SCRIPT_NAME"],
+                    'sendmessage' => 'sendmessage',
+                    'refresh_messages' =>'refresh_messages',
+                    'register' => 'register',
+                    'page_title' => 'Home',
+                    'message_table_data' => $message_table_data,
+                    'registration_message' => $registration_message,
                 ]
             );
         }
@@ -51,7 +73,7 @@ $app->post(
                     'landing_page' => $_SERVER["SCRIPT_NAME"],
                     'registrationsubmit' => 'registrationsubmit',
                     'page_title' => 'Register',
-                    'useralreadyexists' => 'A user with that name already exists.',
+                    'error_message' => $error_message,
                 ]
             );
         }

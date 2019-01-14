@@ -36,6 +36,16 @@ class Validator
         return $sanitised_string;
     }
 
+    public function validate_username($username) {
+        $validated_username = false;
+
+        if(strlen($username) !== 0 || strlen($username) < 10) {
+            $validated_username = $username;
+        }
+
+        return $validated_username;
+    }
+
     public function validate_fan($tainted_fan) {
         $validated_fan = false;
 

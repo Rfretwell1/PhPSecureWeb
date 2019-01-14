@@ -39,6 +39,13 @@ $container['soap_wrapper'] = function ($container) {
     return $wrapper;
 };
 
+$container['session_wrapper'] = function ($container) {
+    $class_path = $container->get('settings')['class_path'];
+    require $class_path . 'SessionWrapper.php';
+    $wrapper = new SessionWrapper();
+    return $wrapper;
+};
+
 $container['account_model'] = function ($container) {
     $class_path = $container->get('settings')['class_path'];
     require $class_path . 'AccountModel.php';
