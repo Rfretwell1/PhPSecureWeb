@@ -1,17 +1,17 @@
 body{
     background-color: #f9f9f9;
-    font-family: Ubuntu;
+    font-family: Ubuntu, Vemana2000;
     margin: 0px;
     padding: 0px;
-}
-
-html {
-    font-family: Ubuntu;
 }
 
 h2 {
     padding-top: 1px;
     margin: 1px;
+}
+
+label{
+    font-size: large;
 }
 
 #header-text-div {
@@ -57,24 +57,9 @@ h2 {
     text-align: left;
 }
 
-.page-content-div
+#page-content-div
 {
     text-align: left;
-    text-decoration: underline;
-}
-
-.register {
-    text-decoration: underline;
-}
-
-label{
-    text-decoration: underline;
-    font-size: larger;
-}
-
-menu {
-    text-align: end;
-    font-size: large;
 }
 
 #messages-table-element, th, td {
