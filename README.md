@@ -2,8 +2,8 @@
 Team project work for Secure Web Application Module
 
 Team Members:
-Ryan Fretwell - P15238469
-Josh Davis - P16166207
+Ryan Fretwell - P15238469 <br>
+Josh Davis - P16166207 <br>
 Joshua Fernandes - P15094673
 
 In teams of 3 we had to implement a web application that is impervious to the most common web-based attacks and also can access and display data from remote web services. 
