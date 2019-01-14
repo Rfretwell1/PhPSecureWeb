@@ -1,0 +1,53 @@
+<?php
+use PHPUnit\Framework\TestCase;
+
+class OutputTest extends TestCase
+{
+    public function testExpectJosh2369ActualJosh2369()
+    {
+        $this->expectOutputString('Josh2369');
+        print 'Josh2369';
+    }
+
+    public function testExpectBarActualBaz()
+    {
+        $this->expectOutputString('Josh2369');
+        print 'Joah2369';
+    }
+}
+//unit test for temperature
+<?php
+use PHPUnit\Framework\TestCase;
+
+class OutputTest extends TestCase
+{
+    public function testExpect1234Actual1234()
+    {
+        $this->expectOutputInteger('1234');
+        print '1234';
+    }
+
+    public function testExpect1234Actual1254()
+    {
+        $this->expectOutputString('1234');
+        print '1254';
+    }
+}
+<?php
+use PHPUnit\Framework\TestCase;
+
+class OutputTest extends TestCase
+{
+    public function testExpect1245Actual1245()
+    {
+        $this->expectOutputString('1245');
+        print '1245';
+    }
+
+    public function testExpect1254Actual1294()
+    {
+        $this->expectOutputString('1254');
+        print '1294';
+    }
+}
+
