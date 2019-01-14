@@ -1,32 +1,16 @@
 <?php
 
-class Validator
-{
-    /**
-     * MessageModel constructor. - the __construct method is used to pass in parameters when you
-     * first create an object - called 'defining constructor method'.
-     * __construct is always called when creating new objects or they are invoked when
-     * the initialization takes place. it is suitable for any of the initializations that
-     * the object may need before it is used.
-     * __construct method is the first method executed.
-     */
+class Validator {
+
     public function __construct() { }
 
-    /**
-     * the destruct will be called as soon as there are no other references to a particular
-     * object, or in any order during a shutdown sequence.
-     * The destructor being called will happen even if the script execution is stopped.
-     * Calling for a function to stop the script will prevent the remaining shutdown
-     * routines from being executed.
-     */
     public function __destruct() { }
 
     /**
      * @param $string_to_sanitise - removes tags and remove or encode special characters from a string.
      * @return bool|mixed returns the true or false value depending on if the string has been sanitized
      */
-    public function sanitise_string($string_to_sanitise)
-    {
+    public function sanitise_string($string_to_sanitise) {
         $sanitised_string = false;
 
         if (!empty($string_to_sanitise))
@@ -36,6 +20,9 @@ class Validator
         return $sanitised_string;
     }
 
+    /**Validates a sanitised username, ensuring that it is not an empty string, and that it is less than 10 characters long
+     * @param $username - The username to be validated
+     * @return bool|string - Returns the username if valid, otherwise returns 'false' */
     public function validate_username($username) {
         $validated_username = false;
 
@@ -46,11 +33,14 @@ class Validator
         return $validated_username;
     }
 
-    public function validate_fan($tainted_fan) {
+    /**Validates the output of the fan field, ensuring that it remains one of two predetermined values, in order to hinder tampering attempts
+     * @param $fan - The fan value to be validated
+     * @return bool|string - Returns the fan value if valid, otherwise returns 'false' */
+    public function validate_fan($fan) {
         $validated_fan = false;
 
-        if($tainted_fan === 'fwd' || $tainted_fan === 'rev') {
-            $validated_fan = $tainted_fan;
+        if($fan === 'fwd' || $fan === 'rev') {
+            $validated_fan = $fan;
         }
 
         return $validated_fan;
@@ -58,20 +48,13 @@ class Validator
 
     /**Validates the temperature input, ensuring that it is a number between -9999 and 9999
      * @param $tainted_temperature - the temperature value to validate
-     * @return string - the validated temperature, OR false if it is invalid
+     * @return string - the validated temperature, otherwise 'false' if it is invalid
      */
-    public function validate_temperature($tainted_temperature) {
+    public function validate_temperature($temperature) {
+        $validated_temperature = false;
 
-        if(is_numeric($tainted_temperature)) {
-            if($tainted_temperature < 9999 || $tainted_temperature > -9999) {
-                $validated_temperature = $tainted_temperature;
-            }
-            else {
-                $validated_temperature = false;
-            }
-        }
-        else {
-            $validated_temperature = false;
+        if(is_numeric($temperature) && ($temperature < 9999 || $temperature > -9999)) {
+            $validated_temperature = $temperature;
         }
 
         return $validated_temperature;
@@ -79,38 +62,15 @@ class Validator
 
     /**Validates the keypad value input, ensuring that it is a 4 digit number
      * @param $tainted_keypad - the keypad value to validate
-     * @return int|string - the validated keypad value, OR a reason as for why the keypad value is invalid
+     * @return int|bool - the validated keypad value, otherwise 'false' if it is invalid
      */
     public function validate_keypad($tainted_keypad) {
+        $validated_keypad = false;
 
-        if(is_numeric($tainted_keypad)) {
-            if(strlen($tainted_keypad) === 4) {
-                $validated_keypad = $tainted_keypad;
-            }
-            else {
-                $validated_keypad = false;
-            }
-        }
-        else {
-            $validated_keypad = false;
+        if(is_numeric($tainted_keypad) && strlen($tainted_keypad) === 4) {
+            $validated_keypad = $tainted_keypad;
         }
 
         return $validated_keypad;
-    }
-
-    /**
-     * @param $email_to_sanitise - removes all characters except letters, digits and !"£$%^&*()-_+={}[]@'.
-     * @return bool|mixed returns either true or false depending on the characters entered
-     */
-    public function sanitise_email($email_to_sanitise)
-    {
-        $cleaned_email = false;
-
-        if (!empty($email_to_sanitise))
-        {
-            $sanitised_email = filter_var($email_to_sanitise, FILTER_SANITIZE_EMAIL);
-            $cleaned_email = filter_var($sanitised_email, FILTER_VALIDATE_EMAIL);
-        }
-        return $cleaned_email;
     }
 }

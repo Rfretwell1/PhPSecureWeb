@@ -6,66 +6,47 @@
  * Time: 17:19
  */
 
-class MessagesModel
-{
+/**
+ * Class MessagesModel
+ * A model for the processing and storage of messages received from the EE M2M Connect server.
+ */
+class MessagesModel {
     private $database_handle;
     private $sql_wrapper;
     private $sql_queries;
 
-    /**
-     * MessageModel constructor. - the __construct method is used to pass in parameters when you
-     * first create an object - called 'defining constructor method'.
-     * __construct is always called when creating new objects or they are invoked when
-     * the initialization takes place. it is suitable for any of the initializations that
-     * the object may need before it is used.
-     * __construct method is the first method executed.
-     */
-    public function __construct()
-    {
+    public function __construct() {
         $this->database_handle = null;
         $this->sql_wrapper = null;
         $this->sql_queries = null;
     }
 
-    /**
-     * the destruct will be called as soon as there are no other references to a particular
-     * object, or in any order during a shutdown sequence.
-     * The destructor being called will happen even if the script execution is stopped.
-     * Calling for a function to stop the script will prevent the remaining shutdown
-     * routines from being executed.
-     */
     public function __destruct() { }
 
-    /**
-     * @param $p_obj_db_handle - sets the underlying databases handle.
-     * also, optionally environment handle if the environment has been changed.
-     * Users can change the containers object's underlying database while the object
-     * is alive. db will verify that the handles set conforms to the concrete container's
-     * requirements to db.
-     */
+    /**Sets the database handle for the class, containing the settings required to connect to the database
+     * @param $database_handle - the database handle to set */
     public function set_database_handle($database_handle)
     {
         $this->database_handle = $database_handle;
     }
 
-    /**
-     * telling the mysql wrapper what the db information to use when its accessed.
-     * @param $p_obj_wrapper_db - a wrapper is data that precedes or frames the main
-     * data or a program that sets up another program so it can run successfully.
-     */
+    /**Sets the SQLWrapper file for the class
+     * @param $sql_wrapper - the SQLWrapper file to set */
     public function set_sql_wrapper($sql_wrapper)
     {
         $this->sql_wrapper = $sql_wrapper;
     }
 
-    /**
-     * @param $p_obj_sql_queries - sets the objects for the SQL queries.
-     */
+    /**Sets the SQLQueries file for the class
+     * @param $sql_queries - the SQLQueries file to set */
     public function set_sql_queries($sql_queries)
     {
         $this->sql_queries = $sql_queries;
     }
 
+    /**Takes the array produced by peeking the messages on the M2M server, parses them, and returns them in JSON format
+     * @param $peeked_messages - The messages to be parsed
+     * @return array - The parsed messages in an array of strings, formatted in JSON */
     public function parse_messages($peeked_messages) {
         $parsed_messages = [];
         libxml_use_internal_errors(true);
@@ -83,8 +64,7 @@ class MessagesModel
 
     /**Filters through an array of peeked messages, and returns only the messages of the correct group ID.
      * @param $peeked_messages - the array of peeked messages to be filtered
-     * @return array - returns an array of peeked messages that have the correct group ID
-     */
+     * @return array - returns an array of peeked messages that have the correct group ID */
     public function filter_messages($peeked_messages) {
         $filtered_messages_array = [];
 
@@ -99,16 +79,20 @@ class MessagesModel
         return $filtered_messages_array;
     }
 
+    /**Selects the contents of the 'messages' table
+     * @return mixed - the results of the SQL query */
     public function select_messages_table() {
-        $messages_table_data = false;
-
         $this->sql_wrapper->set_database_handle( $this->database_handle);
         $this->sql_wrapper->set_sql_queries( $this->sql_queries);
 
         $messages_table_data = $this->sql_wrapper->select_messages_table();
+
         return $messages_table_data;
     }
 
+    /**Takes a message and processes it, for the SQL wrapper to store in the database
+     * @param $message - The message to store
+     * @return bool - The result of the storage attempt */
     public function store_message_data($message){
         $storage_result = false;
 

@@ -1,8 +1,4 @@
 <?php
-/**
- * @param $container
- * @return \Slim\Views\Twig - returns the views of the slim\views\twig files
- */
 $container['view'] = function ($container) {
     $view = new \Slim\Views\Twig(
         $container['settings']['view']['template_path'],
@@ -25,10 +21,38 @@ $container['view'] = function ($container) {
     return $view;
 };
 
-$container['base64_wrapper'] = function ($container) {
+$container['messages_model'] = function ($container) {
     $class_path = $container->get('settings')['class_path'];
-    require $class_path . 'Base64Wrapper.php';
-    $wrapper = new Base64Wrapper();
+    require $class_path . 'MessagesModel.php';
+    $wrapper = new MessagesModel();
+    return $wrapper;
+};
+
+$container['account_model'] = function ($container) {
+    $class_path = $container->get('settings')['class_path'];
+    require $class_path . 'AccountModel.php';
+    $wrapper = new AccountModel();
+    return $wrapper;
+};
+
+$container['circuitboard_model'] = function ($container) {
+    $class_path = $container->get('settings')['class_path'];
+    require $class_path . 'CircuitboardModel.php';
+    $model = new CircuitboardModel();
+    return $model;
+};
+
+$container['validator'] = function ($container) {
+    $class_path = $container->get('settings')['class_path'];
+    require $class_path . 'Validator.php';
+    $validator = new Validator();
+    return $validator;
+};
+
+$container['bcrypt_wrapper'] = function ($container) {
+    $class_path = $container->get('settings')['class_path'];
+    require $class_path . 'BcryptWrapper.php';
+    $wrapper = new BcryptWrapper();
     return $wrapper;
 };
 
@@ -46,57 +70,6 @@ $container['session_wrapper'] = function ($container) {
     return $wrapper;
 };
 
-$container['account_model'] = function ($container) {
-    $class_path = $container->get('settings')['class_path'];
-    require $class_path . 'AccountModel.php';
-    $wrapper = new AccountModel();
-    return $wrapper;
-};
-
-$container['messages_model'] = function ($container) {
-    $class_path = $container->get('settings')['class_path'];
-    require $class_path . 'MessagesModel.php';
-    $wrapper = new MessagesModel();
-    return $wrapper;
-};
-
-$container['bcrypt_wrapper'] = function ($container) {
-    $class_path = $container->get('settings')['class_path'];
-    require $class_path . 'BcryptWrapper.php';
-    $wrapper = new BcryptWrapper();
-    return $wrapper;
-};
-
-
-$container['libsodium_wrapper'] = function ($container) {
-    $class_path = $container->get('settings')['class_path'];
-    require $class_path . 'LibSodiumWrapper.php';
-    $wrapper = new LibSodiumWrapper();
-    return $wrapper;
-};
-
-$container['message_validator'] = function ($container) {
-    $class_path = $container->get('settings')['class_path'];
-    require $class_path . 'MessageValidator.php';
-    $validator = new MessageValidator();
-    return $validator;
-};
-
-$container['validator'] = function ($container) {
-    $class_path = $container->get('settings')['class_path'];
-    require $class_path . 'Validator.php';
-    $validator = new Validator();
-    return $validator;
-};
-
-$container['circuitboard_model'] = function ($container) {
-    $class_path = $container->get('settings')['class_path'];
-    require $class_path . 'CircuitboardModel.php';
-    $model = new CircuitboardModel();
-    return $model;
-};
-
-
 $container['mysql_wrapper'] = function ($container) {
 $class_path = $container->get('settings')['class_path'];
 require $class_path . 'MySQLWrapper.php';
@@ -104,14 +77,12 @@ $mysql_wrapper = new MySQLWrapper();
 return $mysql_wrapper;
 };
 
-
 $container['sql_queries'] = function ($container) {
 $class_path = $container->get('settings')['class_path'];
 require $class_path . 'SQLQueries.php';
 $sql_queries = new SQLQueries();
 return $sql_queries;
 };
-
 
 $container['dbase'] = function ($container) {
 

@@ -2,65 +2,48 @@
 
 class MySQLWrapper
 {
-  private $database_handle;
-  private $sql_queries;
-  private $sql_statement;
-  private $errors_array;
+    private $database_handle;
+    private $sql_queries;
+    private $sql_statement;
+    private $errors_array;
 
-    /**
-     * MessageModel constructor. - the __construct method is used to pass in parameters when you
-     * first create an object - called 'defining constructor method'.
-     * __construct is always called when creating new objects or they are invoked when
-     * the initialization takes place. it is suitable for any of the initializations that
-     * the object may need before it is used.
-     * __construct method is the first method executed.
-     */
-  public function __construct()
-  {
+    public function __construct()
+    {
     $this->database_handle = null;
     $this->sql_queries = null;
     $this->sql_statement = null;
     $this->errors_array = [];
-  }
+    }
 
-    /**
-     * the destruct will be called as soon as there are no other references to a particular
-     * object, or in any order during a shutdown sequence.
-     * The destructor being called will happen even if the script execution is stopped.
-     * Calling for a function to stop the script will prevent the remaining shutdown
-     * routines from being executed.
-     */
-  public function __destruct() { }
+    public function __destruct() { }
 
-    /**
-     * @param $p_obj_db_handle - selects object handler from the database.
-     */
-  public function set_database_handle($database_handle)
-  {
-    $this->database_handle = $database_handle;
-  }
+    /**Sets the database handle for the class, containing the settings required to connect to the database
+     * @param $database_handle - the database handle to set */
+    public function set_database_handle($database_handle)
+    {
+        $this->database_handle = $database_handle;
+    }
 
-    /**
-     * @param $p_obj_sql_queries - tells something where it can find the queries
-     */
-  public function set_sql_queries($sql_queries)
-  {
-    $this->sql_queries = $sql_queries;
-  }
+    /**Sets the SQLQueries file for the class
+     * @param $sql_queries - the SQLQueries file to set */
+    public function set_sql_queries($sql_queries)
+    {
+        $this->sql_queries = $sql_queries;
+    }
 
-    /**
-     * @param $p_acct_name - check if the users account name exists
-     * @return array - if found, display account name, if not, fail.
+    /**Retrieves the account data for a given username from the database
+     * @param $username - The username to retrieve the account data for
+     * @return bool|array - 'false' if the account doesn't exist, else returns an array containing the account username & password from the accounts database
      */
-  public function select_account_data($p_acct_name) {
-      $m_query_string = $this->sql_queries->select_account_data();
-      $m_arr_query_parameters = [
-          ':acct_name' => $p_acct_name,
+    public function select_account_data($username) {
+      $query_string = $this->sql_queries->select_account_data();
+      $query_parameters = [
+          ':acct_name' => $username,
       ];
 
-      $result = $this->safe_query($m_query_string, $m_arr_query_parameters);
+      $result = $this->safe_query($query_string, $query_parameters);
       return $result;
-  }
+    }
 
     /**
      * binding parameters to the sql query , if those parameters are not there then the method wouldn't know what

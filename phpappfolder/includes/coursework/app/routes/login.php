@@ -12,8 +12,7 @@ $app->get('/login', function(Request $request, Response $response)
             'landing_page' => $_SERVER["SCRIPT_NAME"],
             'page_title' => 'Login',
             'home' => '/coursework',
-            'login' => '/login',
-            'register' => '/register',
+            'register' => 'register',
             'login_submit' => 'login_submit',
         ]);
 });

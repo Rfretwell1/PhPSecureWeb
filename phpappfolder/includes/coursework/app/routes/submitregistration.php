@@ -37,7 +37,7 @@ $app->post(
         $account_model->set_sql_wrapper($mysql_wrapper);
         $account_model->set_sql_queries($sql_queries);
 
-        $does_user_exist = $account_model->check_if_user_exists($cleaned_username);
+        $does_user_exist = $account_model->get_account_data($cleaned_username);
 
         $error_message = '';
         if($does_user_exist) {

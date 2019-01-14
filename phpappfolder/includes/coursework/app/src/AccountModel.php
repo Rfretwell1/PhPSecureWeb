@@ -6,75 +6,54 @@
  * Time: 17:19
  */
 
-class AccountModel
-{
-    private $c_arr_storage_result;
+/**
+ * Class AccountModel
+ * A class for handling all account related features of the application
+ */
+class AccountModel {
     private $database_handle;
     private $sql_wrapper;
     private $sql_queries;
     private $session_wrapper;
 
-    /**
-     * MessageModel constructor. - the __construct method is used to pass in parameters when you
-     * first create an object - called 'defining constructor method'.
-     * __construct is always called when creating new objects or they are invoked when
-     * the initialization takes place. it is suitable for any of the initializations that
-     * the object may need before it is used.
-     * __construct method is the first method executed.
-     */
-    public function __construct()
-    {
-        $this->c_arr_storage_result = null;
+    public function __construct() {
         $this->database_handle = null;
         $this->sql_wrapper = null;
         $this->sql_queries = null;
         $this->session_wrapper = null;
     }
 
-    /**
-     * the destruct will be called as soon as there are no other references to a particular
-     * object, or in any order during a shutdown sequence.
-     * The destructor being called will happen even if the script execution is stopped.
-     * Calling for a function to stop the script will prevent the remaining shutdown
-     * routines from being executed.
-     */
     public function __destruct() { }
 
-    /**
-     * @param $p_obj_db_handle - sets the underlying databases handle.
-     * also, optionally environment handle if the environment has been changed.
-     * Users can change the containers object's underlying database while the object
-     * is alive. db will verify that the handles set conforms to the concrete container's
-     * requirements to db.
-     */
+    /**Sets the database handle for the class, containing the settings required to connect to the database
+     * @param $database_handle - the database handle to set */
     public function set_database_handle($database_handle)
     {
         $this->database_handle = $database_handle;
     }
 
-    /**
-     * telling the mysql wrapper what the db information to use when its accessed.
-     * @param $p_obj_wrapper_db - a wrapper is data that precedes or frames the main
-     * data or a program that sets up another program so it can run successfully.
-     */
+    /**Sets the SQLWrapper file for the class
+     * @param $sql_wrapper - the SQLWrapper file to set */
     public function set_sql_wrapper($sql_wrapper)
     {
         $this->sql_wrapper = $sql_wrapper;
     }
 
-    /**
-     * @param $p_obj_sql_queries - sets the objects for the SQL queries.
-     */
+    /**Sets the SQLQueries file for the class
+     * @param $sql_queries - the SQLQueries file to set */
     public function set_sql_queries($sql_queries)
     {
         $this->sql_queries = $sql_queries;
     }
 
+    /**Sets the SessionWrapper file for the class
+     * @param $session_wrapper - the SessionWrapper file to set */
     public function set_session_wrapper($session_wrapper)
     {
         $this->session_wrapper = $session_wrapper;
     }
 
+    //TODO - COMMENT
     public function store_data_in_session_file($username, $password)
     {
         $m_store_result = false;
@@ -87,39 +66,29 @@ class AccountModel
         return $m_store_result;
     }
 
-    public function store_account_data($p_acct_name, $p_acct_password) {
-
+    /**Stores a given username & password into the database
+     * @param $username - The username to insert
+     * @param $password - The password to insert
+     * @return mixed - The result of the storage attempt
+     */
+    public function store_account_data($username, $password) {
         $this->sql_wrapper->set_database_handle( $this->database_handle);
         $this->sql_wrapper->set_sql_queries( $this->sql_queries);
 
-        $store_result = $this->sql_wrapper->insert_account_details($p_acct_name, $p_acct_password);
+        $storage_result = $this->sql_wrapper->insert_account_details($username, $password);
 
-        return $store_result;
+        return $storage_result;
     }
 
-    public function check_if_user_exists($p_acct_name) {
-        $m_store_result = false;
-
-        $this->sql_wrapper->set_database_handle( $this->database_handle);
-        $this->sql_wrapper->set_sql_queries( $this->sql_queries);
-
-        $m_store_result = $this->sql_wrapper->select_account_data($p_acct_name);
-        //var_dump($m_store_result);
-
-        if(sizeof($m_store_result) != 0) {
-            $result = true;
-        }
-        else $result = false;
-
-        return $result;
-    }
-
+    /**Retrieves the account data for a given username from the database
+     * @param $username - The username to retrieve the account data for
+     * @return bool|array - 'false' if the account doesn't exist, else returns an array containing the account username & password from the accounts database
+     */
     public function get_account_data($username) {
         $this->sql_wrapper->set_database_handle( $this->database_handle);
         $this->sql_wrapper->set_sql_queries( $this->sql_queries);
 
         $account_data = $this->sql_wrapper->select_account_data($username);
-
         if(sizeof($account_data) != 1) {
             $account_data = false;
         }

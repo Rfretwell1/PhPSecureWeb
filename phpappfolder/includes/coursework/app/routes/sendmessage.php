@@ -85,6 +85,8 @@ $app->post(
                 'refresh_messages' =>'refresh_messages',
                 'register' => 'register',
                 'page_title' => 'Home',
+                'login' => 'login',
+                'home' => '/coursework',
                 'message_table_data' => $message_table_data,
                 'submit_message' => $submit_message,
             ]

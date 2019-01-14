@@ -51,15 +51,3 @@ $app->get('/', function(Request $request, Response $response) {
             'message_table_data' => $message_table_data,
         ]);
 })->setName('home');
-
-
-/*$message_model = $this->get('message_model');
-$wrapper_mysql = $this->get('mysql_wrapper');
-$db_handle = $this->get('dbase');
-$sql_queries = $this->get('sql_queries');
-
-
-$message_model->set_wrapper_message_db($wrapper_mysql);
-$message_model->set_db_handle($db_handle);
-$message_model->set_sql_queries($sql_queries);
-//$soap = $message_model->createSoapClient();*/
